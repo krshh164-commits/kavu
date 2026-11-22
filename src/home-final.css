@@ -9,12 +9,12 @@
 .kavu-header-control:focus-visible, .kavu-nav-item:focus-visible, .kavu-start:focus-visible { outline: 2px solid var(--md-sys-color-on-surface); outline-offset: 3px; }
 .kavu-main { z-index: 1; display: flex; flex: 1 1 auto; min-height: 0; flex-direction: column; align-items: center; gap: 0; padding: 0 var(--kavu-space-lg); }
 .kavu-header + .kavu-main { margin-top: -8px; }
-.kavu-greeting { position: relative; top: 20px; left: auto; right: auto; align-self: stretch; flex: 0 0 71px; }
+.kavu-greeting { position: relative; top: 44px; left: auto; right: auto; align-self: stretch; flex: 0 0 71px; }
 .kavu-greeting h1 { margin: 0; color: var(--md-sys-color-on-surface); font: 300 32px/37px var(--md-ref-typeface-brand); letter-spacing: 0; white-space: nowrap; }
 .kavu-greeting p { margin: var(--kavu-space-sm) 0 0; color: #1c8548; font: 300 20px/24px Urbanist, sans-serif; }
-.kavu-visual { position: relative; top: 16px; left: auto; right: auto; flex: 0 0 290px; width: 100%; height: 290px; min-height: 0; max-height: none; margin-top: var(--kavu-space-xl); overflow: hidden; }
+.kavu-visual { position: relative; top: 76px; left: auto; right: auto; flex: 0 0 290px; width: 100%; height: 290px; min-height: 0; max-height: none; margin-top: var(--kavu-space-xl); overflow: hidden; }
 .kavu-island-scene, .kavu-island-scene canvas { display: block; width: 100%; height: 100%; touch-action: none; }
-.kavu-assessment { position: relative; top: -14px; flex: 0 0 38px; width: 172px; margin: 24px 0 0; color: var(--md-sys-color-on-surface); text-align: center; font: 400 16px/19px var(--md-ref-typeface-plain); }
+.kavu-assessment { position: relative; top: 66px; flex: 0 0 38px; width: 172px; margin: 24px 0 0; color: var(--md-sys-color-on-surface); text-align: center; font: 400 16px/19px var(--md-ref-typeface-plain); }
 .kavu-flex-space { flex: 1 1 48px; min-height: 0; width: 100%; }
 .kavu-start { --kavu-cta-angle: 164deg; position: relative; top: -30px; display: flex; flex: 0 0 62px; align-items: center; justify-content: center; gap: 12px; width: 248px; min-height: 62px; height: 62px; margin: 0; padding: 0 20px; border: 1px solid rgba(246,251,244,.79); border-radius: 40px; background: linear-gradient(var(--kavu-cta-angle), #60a50c 1%, #16824d 81%); color: #efffcf; box-shadow: 0 8px 24.4px rgba(133,255,51,.15), 0 2px 32px rgba(0,0,0,.11), inset 0 0 9px rgba(255,255,255,.22), inset 1px 1px 5.4px rgba(246,255,124,.5); font: 600 16px/1 Urbanist, sans-serif; transform: scale(1); transition: transform 400ms cubic-bezier(.2,1.35,.4,1); animation: kavu-cta-gradient 18s linear infinite; }
 .kavu-start:active { transform: scale(.97); transition-duration: 120ms; }
