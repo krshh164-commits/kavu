@@ -1,0 +1,125 @@
+1:05:48 PM [vite] (client) [console.warn] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+1:05:48 PM [vite] (client) [console.warn] THREE.WebGLShadowMap: PCFSoftShadowMap has been removed. Using PCFShadowMap instead.
+1:05:49 PM [vite] (client) [console.warn] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+1:05:49 PM [vite] (client) [console.warn] THREE.WebGLShadowMap: PCFSoftShadowMap has been removed. Using PCFShadowMap instead.
+1:06:30 PM [vite] (client) [console.warn] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+1:06:30 PM [vite] (client) [console.warn] THREE.WebGLShadowMap: PCFSoftShadowMap has been removed. Using PCFShadowMap instead.
+1:06:31 PM [vite] (client) [console.warn] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+1:06:31 PM [vite] (client) [console.warn] THREE.WebGLShadowMap: PCFSoftShadowMap has been removed. Using PCFShadowMap instead.
+1:06:59 PM [vite] (client) [console.warn] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+1:06:59 PM [vite] (client) [console.warn] THREE.WebGLShadowMap: PCFSoftShadowMap has been removed. Using PCFShadowMap instead.
+1:06:59 PM [vite] (client) [console.warn] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+1:06:59 PM [vite] (client) [console.warn] THREE.WebGLShadowMap: PCFSoftShadowMap has been removed. Using PCFShadowMap instead.
+1:07:39 PM [vite] (client) [console.warn] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+1:07:39 PM [vite] (client) [console.warn] THREE.WebGLShadowMap: PCFSoftShadowMap has been removed. Using PCFShadowMap instead.
+1:07:39 PM [vite] (client) [console.warn] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+1:07:39 PM [vite] (client) [console.warn] THREE.WebGLShadowMap: PCFSoftShadowMap has been removed. Using PCFShadowMap instead.
+1:08:54 PM [vite] (client) [console.warn] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+1:08:54 PM [vite] (client) [console.warn] THREE.WebGLShadowMap: PCFSoftShadowMap has been removed. Using PCFShadowMap instead.
+1:08:54 PM [vite] (client) [console.warn] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+1:08:54 PM [vite] (client) [console.warn] THREE.WebGLShadowMap: PCFSoftShadowMap has been removed. Using PCFShadowMap instead.
+1:09:35 PM [vite] (client) [console.warn] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+1:09:35 PM [vite] (client) [console.warn] THREE.WebGLShadowMap: PCFSoftShadowMap has been removed. Using PCFShadowMap instead.
+1:09:35 PM [vite] (client) [console.warn] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+1:09:35 PM [vite] (client) [console.warn] THREE.WebGLShadowMap: PCFSoftShadowMap has been removed. Using PCFShadowMap instead.
+1:48:14 PM [vite] (client) [console.error] [vite] Failed to reload /src/Prototype.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+1:48:14 PM [vite] (client) [console.error] [vite] Failed to reload /src/prototype.css. This could be due to syntax errors or importing non-existent modules. (see errors above)
+1:50:25 PM [vite] (client) Pre-transform error: Failed to resolve import "./painted-world" from "src/Prototype.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/src/Prototype.tsx:3:57
+  1  |  import { useEffect, useRef, useState } from "react";
+  2  |  import { ResetIcon, PauseIcon, PlayIcon } from "@radix-ui/react-icons";
+  3  |  import { createPaintedWorld } from "./painted-world";
+     |                                      ^
+  4  |  var _jsxFileName = "C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/sr...
+  5  |  import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime";
+1:50:25 PM [vite] Internal server error: Failed to resolve import "./painted-world" from "src/Prototype.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/src/Prototype.tsx:3:57
+  1  |  import { useEffect, useRef, useState } from "react";
+  2  |  import { ResetIcon, PauseIcon, PlayIcon } from "@radix-ui/react-icons";
+  3  |  import { createPaintedWorld } from "./painted-world";
+     |                                      ^
+  4  |  var _jsxFileName = "C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/sr...
+  5  |  import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime";
+      at TransformPluginContext._formatLog (file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:29960:39)
+      at TransformPluginContext.error (file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:29957:14)
+      at normalizeUrl (file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:26993:18)
+      at async file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:27056:30
+      at async Promise.all (index 2)
+      at async TransformPluginContext.transform (file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:27024:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:29745:14)
+      at async loadAndTransform (file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:19729:26)
+1:50:25 PM [vite] (client) [console.error] [vite] Failed to reload /src/Prototype.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+1:50:25 PM [vite] Internal server error: Failed to resolve import "./painted-world" from "src/Prototype.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/src/Prototype.tsx:3:57
+  1  |  import { useEffect, useRef, useState } from "react";
+  2  |  import { ResetIcon, PauseIcon, PlayIcon } from "@radix-ui/react-icons";
+  3  |  import { createPaintedWorld } from "./painted-world";
+     |                                      ^
+  4  |  var _jsxFileName = "C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/sr...
+  5  |  import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime";
+      at TransformPluginContext._formatLog (file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:29960:39)
+      at TransformPluginContext.error (file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:29957:14)
+      at normalizeUrl (file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:26993:18)
+      at async file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:27056:30
+      at async Promise.all (index 2)
+      at async TransformPluginContext.transform (file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:27024:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:29745:14)
+      at async loadAndTransform (file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:19729:26)
+1:50:25 PM [vite] (client) Pre-transform error: Failed to resolve import "./painted-world" from "src/Prototype.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/src/Prototype.tsx:3:57
+  1  |  import { useEffect, useRef, useState } from "react";
+  2  |  import { ResetIcon, PauseIcon, PlayIcon } from "@radix-ui/react-icons";
+  3  |  import { createPaintedWorld } from "./painted-world";
+     |                                      ^
+  4  |  var _jsxFileName = "C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/sr...
+  5  |  import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime";
+1:50:25 PM [vite] (client) Pre-transform error: Failed to resolve import "./painted-world" from "src/Prototype.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/src/Prototype.tsx:3:57
+  1  |  import { useEffect, useRef, useState } from "react";
+  2  |  import { ResetIcon, PauseIcon, PlayIcon } from "@radix-ui/react-icons";
+  3  |  import { createPaintedWorld } from "./painted-world";
+     |                                      ^
+  4  |  var _jsxFileName = "C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/sr...
+  5  |  import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime";
+1:50:25 PM [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+1:50:25 PM [vite] Internal server error: Failed to resolve import "./painted-world" from "src/Prototype.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/src/Prototype.tsx:3:57
+  1  |  import { useEffect, useRef, useState } from "react";
+  2  |  import { ResetIcon, PauseIcon, PlayIcon } from "@radix-ui/react-icons";
+  3  |  import { createPaintedWorld } from "./painted-world";
+     |                                      ^
+  4  |  var _jsxFileName = "C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/sr...
+  5  |  import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime";
+      at TransformPluginContext._formatLog (file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:29960:39)
+      at TransformPluginContext.error (file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:29957:14)
+      at normalizeUrl (file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:26993:18)
+      at async file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:27056:30
+      at async Promise.all (index 2)
+      at async TransformPluginContext.transform (file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:27024:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:29745:14)
+      at async loadAndTransform (file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:19729:26)
+1:50:25 PM [vite] (client) Pre-transform error: Failed to resolve import "./painted-world" from "src/Prototype.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/src/Prototype.tsx:3:57
+  1  |  import { useEffect, useRef, useState } from "react";
+  2  |  import { ResetIcon, PauseIcon, PlayIcon } from "@radix-ui/react-icons";
+  3  |  import { createPaintedWorld } from "./painted-world";
+     |                                      ^
+  4  |  var _jsxFileName = "C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/sr...
+  5  |  import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime";
+1:50:25 PM [vite] (client) Pre-transform error: Failed to resolve import "./painted-world" from "src/Prototype.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/src/Prototype.tsx:3:57
+  1  |  import { useEffect, useRef, useState } from "react";
+  2  |  import { ResetIcon, PauseIcon, PlayIcon } from "@radix-ui/react-icons";
+  3  |  import { createPaintedWorld } from "./painted-world";
+     |                                      ^
+  4  |  var _jsxFileName = "C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/sr...
+  5  |  import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime";
+1:50:25 PM [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)

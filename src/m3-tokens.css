@@ -1,0 +1,111 @@
+/* Kāvu's Material 3 roles. Keep the existing illustrated backgrounds and button gradients. */
+:root {
+  --md-ref-typeface-brand: "Tobias", Georgia, serif;
+  --md-ref-typeface-plain: "Urbanist", sans-serif;
+
+  --md-sys-color-primary: #315e48;
+  --md-sys-color-on-primary: #fffdf4;
+  --md-sys-color-primary-container: #b3ff49;
+  --md-sys-color-on-primary-container: #243a30;
+  --md-sys-color-secondary: #61997a;
+  --md-sys-color-on-secondary: #fffdf4;
+  --md-sys-color-secondary-container: #d9efd1;
+  --md-sys-color-on-secondary-container: #285a3c;
+  --md-sys-color-tertiary: #a96f51;
+  --md-sys-color-on-tertiary: #fffdf4;
+  --md-sys-color-tertiary-container: #ffedc5;
+  --md-sys-color-on-tertiary-container: #624629;
+  --md-sys-color-error: #b84d50;
+  --md-sys-color-on-error: #ffffff;
+  --md-sys-color-error-container: #f9dddd;
+  --md-sys-color-on-error-container: #622d31;
+
+  --md-sys-color-background: #d5ffc6;
+  --md-sys-color-on-background: #243a30;
+  --md-sys-color-surface: #f8f7f0;
+  --md-sys-color-on-surface: #243a30;
+  --md-sys-color-on-surface-variant: #667a70;
+  --md-sys-color-surface-variant: #e9eee5;
+  --md-sys-color-surface-tint: #61997a;
+  --md-sys-color-surface-bright: #fffdf4;
+  --md-sys-color-surface-dim: #e1eadc;
+  /* Translucent surfaces let the meadow remain visible through HUD controls. */
+  --md-sys-color-surface-container-lowest: rgba(255, 255, 255, .35);
+  --md-sys-color-surface-container-low: rgba(254, 255, 249, .45);
+  --md-sys-color-surface-container: rgba(254, 255, 249, .61);
+  --md-sys-color-surface-container-high: rgba(254, 255, 249, .78);
+  --md-sys-color-surface-container-highest: #f8f7f0;
+  --md-sys-color-outline: rgba(197, 197, 194, .8);
+  --md-sys-color-outline-variant: #dde8dc;
+  --md-sys-color-inverse-surface: #243a30;
+  --md-sys-color-inverse-on-surface: #f8f7f0;
+  --md-sys-color-inverse-primary: #b3ff49;
+
+  --md-sys-shape-corner-none: 0px;
+  --md-sys-shape-corner-extra-small: 4px;
+  --md-sys-shape-corner-small: 8px;
+  --md-sys-shape-corner-medium: 12px;
+  --md-sys-shape-corner-large: 16px;
+  --md-sys-shape-corner-large-increased: 20px;
+  --md-sys-shape-corner-extra-large: 28px;
+  --md-sys-shape-corner-extra-large-increased: 32px;
+  --md-sys-shape-corner-full: 9999px;
+  --kavu-shape-collection-card: 18px;
+
+  --md-sys-typescale-headline-large-font: var(--md-ref-typeface-brand);
+  --md-sys-typescale-headline-large-size: 32px;
+  --md-sys-typescale-headline-large-line-height: 40px;
+  --md-sys-typescale-headline-large-weight: 300;
+  --md-sys-typescale-headline-medium-font: var(--md-ref-typeface-brand);
+  --md-sys-typescale-headline-medium-size: 28px;
+  --md-sys-typescale-headline-medium-line-height: 36px;
+  --md-sys-typescale-headline-medium-weight: 300;
+  --md-sys-typescale-headline-small-font: var(--md-ref-typeface-brand);
+  --md-sys-typescale-headline-small-size: 24px;
+  --md-sys-typescale-headline-small-line-height: 32px;
+  --md-sys-typescale-headline-small-weight: 300;
+  --md-sys-typescale-title-large-font: var(--md-ref-typeface-brand);
+  --md-sys-typescale-title-large-size: 22px;
+  --md-sys-typescale-title-large-line-height: 28px;
+  --md-sys-typescale-title-large-weight: 300;
+  --md-sys-typescale-title-medium-font: var(--md-ref-typeface-plain);
+  --md-sys-typescale-title-medium-size: 16px;
+  --md-sys-typescale-title-medium-line-height: 24px;
+  --md-sys-typescale-title-medium-weight: 600;
+  --md-sys-typescale-body-large-font: var(--md-ref-typeface-plain);
+  --md-sys-typescale-body-large-size: 16px;
+  --md-sys-typescale-body-large-line-height: 24px;
+  --md-sys-typescale-body-large-weight: 400;
+  --md-sys-typescale-body-medium-font: var(--md-ref-typeface-plain);
+  --md-sys-typescale-body-medium-size: 14px;
+  --md-sys-typescale-body-medium-line-height: 20px;
+  --md-sys-typescale-body-medium-weight: 400;
+  --md-sys-typescale-body-small-font: var(--md-ref-typeface-plain);
+  --md-sys-typescale-body-small-size: 12px;
+  --md-sys-typescale-body-small-line-height: 16px;
+  --md-sys-typescale-body-small-weight: 400;
+  --md-sys-typescale-label-large-font: var(--md-ref-typeface-plain);
+  --md-sys-typescale-label-large-size: 14px;
+  --md-sys-typescale-label-large-line-height: 20px;
+  --md-sys-typescale-label-large-weight: 600;
+  --md-sys-typescale-label-medium-font: var(--md-ref-typeface-plain);
+  --md-sys-typescale-label-medium-size: 12px;
+  --md-sys-typescale-label-medium-line-height: 16px;
+  --md-sys-typescale-label-medium-weight: 600;
+
+  --md-sys-motion-easing-standard: cubic-bezier(.2, 0, 0, 1);
+  --md-sys-motion-easing-emphasized: cubic-bezier(.2, 0, 0, 1);
+  --md-sys-motion-duration-short: 200ms;
+  --md-sys-motion-duration-medium: 300ms;
+  --md-sys-motion-duration-long: 500ms;
+  --kavu-hud-surface: var(--md-sys-color-surface-container);
+  --kavu-hud-surface-strong: var(--md-sys-color-surface-container-high);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --md-sys-motion-duration-short: 0ms;
+    --md-sys-motion-duration-medium: 0ms;
+    --md-sys-motion-duration-long: 0ms;
+  }
+}

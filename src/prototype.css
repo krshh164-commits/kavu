@@ -1,0 +1,234 @@
+@import "@fontsource/urbanist/latin-300.css";
+@import "@fontsource/urbanist/latin-400.css";
+@import "@fontsource/urbanist/latin-500.css";
+@import "@fontsource/urbanist/latin-600.css";
+@import "./m3-tokens.css";
+@import "./home-final.css";
+@layer kavu-previous {
+@font-face { font-family: "Tobias"; src: url("/assets/home/fonts/Tobias-TRIAL-Light.woff2") format("woff2"); font-weight: 300; font-style: normal; font-display: swap; }
+.kavu-home {
+  --ink: #243a30;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse 44% 35% at 20% 49%, rgba(220,250,187,.72), transparent 85%),
+    radial-gradient(ellipse 56% 31% at 100% 92%, rgba(178,247,174,.77), transparent 90%),
+    radial-gradient(ellipse 52% 30% at 0% 100%, rgba(164,246,151,.77), transparent 90%),
+    radial-gradient(ellipse 45% 23% at 0% 3%, rgba(177,241,208,.73), transparent 92%),
+    radial-gradient(ellipse 67% 31% at 85% 0%, rgba(255,236,195,.9), transparent 94%),
+    #d5ffc6;
+  font-family: Urbanist, "Avenir Next", Avenir, ui-sans-serif, system-ui, sans-serif;
+}
+}
+
+.kavu-profile { position: absolute; z-index: 6; inset: 0; isolation: isolate; overflow: hidden; color: #344b43; background: #d5ffc6; font-family: Urbanist, sans-serif; }
+.kavu-profile::before { content: ''; position: absolute; z-index: -1; inset: -4%; pointer-events: none; background: radial-gradient(ellipse 44% 35% at 80% 51%, rgba(220,250,187,.42) 0%, rgba(231,242,143,.265) 45%, transparent 100%), radial-gradient(ellipse 56% 31% at 0% 8%, rgba(192,246,188,.8) 0%, rgba(192,246,188,.5) 45%, transparent 100%), radial-gradient(ellipse 52% 30% at 100% 0%, rgba(168,250,150,.9) 0%, rgba(168,250,150,.57) 45%, transparent 100%), radial-gradient(ellipse 45% 23% at 100% 97%, rgba(180,244,207,.75) 0%, rgba(180,244,207,.47) 45%, transparent 100%), radial-gradient(ellipse 67% 31% at 15% 100%, rgba(255,189,122,.38) 0%, rgba(255,239,216,.6) 45%, transparent 100%); animation: kavu-atmosphere 32s ease-in-out infinite alternate; }
+.kavu-profile::after { content: ''; position: absolute; z-index: 3; inset: 0; pointer-events: none; opacity: .075; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.65'/%3E%3C/svg%3E"); mix-blend-mode: soft-light; }
+.kavu-profile-header { position: absolute; z-index: 2; top: 60px; left: 24px; right: 24px; height: 44px; display: flex; align-items: center; justify-content: space-between; color: #243a30; font-size: 16px; font-weight: 600; }
+.kavu-profile-back, .kavu-profile-header-spacer { width: 44px; height: 44px; flex: 0 0 44px; }
+.kavu-profile-back { display: grid; place-items: center; padding: 0 0 5px; border: 1px solid rgba(244,244,244,.9); border-radius: 50%; background: rgba(254,255,249,.61); color: #243a30; font: 300 36px/1 Urbanist, sans-serif; backdrop-filter: blur(9px); }
+.kavu-profile-back:focus-visible { outline: 2px solid #243a30; outline-offset: 3px; }
+.kavu-profile .kavu-profile-scroll { top: 114px; }
+.kavu-profile-scroll .mobile-scroll-content { padding: 8px 24px calc(var(--mobile-safe-area-height) + 28px); }
+.kavu-profile-intro { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.kavu-profile-intro img { width: 68px; height: 68px; object-fit: contain; }
+.kavu-profile-intro h1 { margin: 10px 0 0; color: #243a30; font: 300 31px/1.15 Tobias, Georgia, serif; }
+.kavu-profile-intro p { margin: 8px 0 0; color: #667a70; font-size: 13px; line-height: 1.35; }
+.kavu-profile-stats { display: grid; grid-template-columns: 1fr 1fr; gap: var(--kavu-space-md); margin-top: var(--kavu-space-xl); }
+.kavu-profile-stats div { display: flex; min-height: 78px; flex-direction: column; align-items: center; justify-content: center; border: 1px solid rgba(221,232,220,.95); border-radius: 18px; background: rgba(254,255,249,.58); }
+.kavu-profile-stats strong { color: #243a30; font: 300 28px/1 Tobias, Georgia, serif; }
+.kavu-profile-stats span { margin-top: 6px; color: #667a70; font-size: 12px; }
+.kavu-collection-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; margin: var(--kavu-space-xl) 0 16px; }
+.kavu-collection-heading h2 { margin: 0; color: #243a30; font: 500 22px/1.2 Urbanist, sans-serif; }
+.kavu-collection-heading p { margin: 5px 0 0; color: #667a70; font-size: 12px; }
+.kavu-collection-heading > span { flex: 0 0 auto; padding-bottom: 2px; color: #667a70; font-size: 11px; }
+.kavu-collection-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.kavu-asset-card { min-width: 0; min-height: 208px; overflow: hidden; border: 1px solid #dde8dc; border-radius: 18px; background: #f8f7f0; }
+.kavu-asset-art { position: relative; display: grid; height: 143px; place-items: center; overflow: hidden; }
+.kavu-asset-art img { display: block; width: 100%; height: 100%; object-fit: contain; transform: scale(1.16); user-select: none; }
+.kavu-asset-card.is-tree .kavu-asset-art img { transform: scale(.86); }
+.kavu-asset-art img[src$="mossy-rock.png"], .kavu-asset-art img[src$="mushroom.png"], .kavu-asset-art img[src$="grasshopper.png"] { transform: scale(.9); }
+.kavu-asset-card.is-locked .kavu-asset-art::after { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,.58); pointer-events: none; }
+.kavu-asset-info { min-height: 64px; padding: 0 12px 12px; }
+.kavu-asset-info h3 { margin: 0 0 7px; color: #344b43; font-size: 14px; font-weight: 600; line-height: 1.2; }
+.kavu-found { display: inline-block; padding: 3px 8px; border-radius: 99px; background: #e2f2dd; color: #387454; font-size: 11px; line-height: 1.2; }
+.kavu-unlock { display: flex; align-items: flex-start; gap: 5px; color: #667a70; font-size: 11px; line-height: 1.25; }
+.kavu-unlock svg { width: 13px; height: 13px; flex: 0 0 13px; margin-top: 1px; }
+@media (max-height: 790px) { .kavu-profile-header { top: 38px; } .kavu-profile .kavu-profile-scroll { top: 92px; } }
+@media (prefers-reduced-motion: reduce) { .kavu-profile::before { animation: none; } }
+.kavu-journal { position: absolute; z-index: 5; inset: 0; overflow: hidden; color: #243a30; background: radial-gradient(ellipse at 75% 0%, #f8f1cb, transparent 50%), #d5ffc6; font-family: Urbanist, sans-serif; }
+.kavu-journal-header { position: absolute; z-index: 2; top: 60px; left: 24px; right: 24px; height: 44px; display: flex; align-items: center; justify-content: space-between; }
+.kavu-journal-header h1 { margin: 0; font: 300 31px/1 Tobias, Georgia, serif; }
+.kavu-journal-header span { color: #428063; font-size: 13px; }
+.kavu-journal .kavu-journal-scroll { top: 116px; bottom: 105px; }
+.kavu-journal-scroll .mobile-scroll-content { padding: 0 18px 28px; }
+.kavu-diary-page { min-height: 980px; padding: 34px 22px 54px 54px; background: #fbf8e9 url('/assets/journal/diary-page.png') center top / 100% 100% no-repeat; box-shadow: 0 8px 28px rgba(46,77,48,.1); }
+.kavu-diary-content { max-width: 340px; margin: 0 auto; }
+.kavu-diary-example { display: inline-block; margin: 0 0 12px; padding: 5px 9px; border-radius: 99px; background: #eaf2dc; color: #52715c; font-size: 12px; line-height: 1; }
+.kavu-diary-content h2 { margin: 0; font: 300 28px/1.1 Tobias, Georgia, serif; }
+.kavu-diary-date { margin: var(--kavu-space-sm) 0 var(--kavu-space-lg); color: #72806d; font-size: 12px; }
+.kavu-diary-photo { margin: 0 0 24px; }
+.kavu-diary-photo img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 45%; border: 6px solid #fffdf4; box-shadow: 0 2px 12px rgba(59,61,36,.16); user-select: none; }
+.kavu-diary-photo figcaption { margin: 9px 2px 0; color: #71816c; font-size: 12px; }
+.kavu-diary-content blockquote { margin: 0 0 28px; color: #344b43; font: 300 22px/1.22 Tobias, Georgia, serif; }
+.kavu-diary-content section { margin-top: var(--kavu-space-xl); }
+.kavu-diary-content h3 { margin: 0 0 8px; font: 600 15px/1.25 Urbanist, sans-serif; }
+.kavu-diary-content section p { margin: 0; color: #405449; font: 400 14px/1.55 Urbanist, sans-serif; }
+.kavu-footer.is-journal { z-index: 7; }
+.kavu-footer.is-journal .kavu-safe-tint { background: linear-gradient(180deg, rgba(214,239,186,.04), rgba(173,220,155,.3)); }
+@media (max-height: 790px) { .kavu-journal-header { top: 38px; } .kavu-journal .kavu-journal-scroll { top: 92px; bottom: 95px; } }
+.kavu-explore { position: absolute; z-index: 5; inset: 0; overflow: hidden; background: #d8ebea; color: #243a30; }
+.kavu-explore-world, .kavu-explore-world canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+.kavu-explore-world { position: absolute; inset: 0; }
+.kavu-explore-header { position: absolute; z-index: 1; top: 60px; left: 24px; right: 24px; pointer-events: none; }
+.kavu-explore-header h1 { margin: 0; font: 300 31px/1.1 Tobias, Georgia, serif; }
+.kavu-explore-header p { margin: 6px 0 0; font: 400 13px/1.3 Urbanist, sans-serif; }
+.kavu-explore-status { position: absolute; z-index: 2; top: 45%; left: 24px; right: 24px; text-align: center; font: 400 14px/1.4 Urbanist, sans-serif; }
+.kavu-explore-hint { position: absolute; z-index: 1; right: 24px; bottom: 188px; left: 24px; margin: 0; text-align: center; font: 400 12px/1.3 Urbanist, sans-serif; pointer-events: none; }
+.kavu-explore-controls { position: absolute; z-index: 2; right: 24px; bottom: 133px; left: 24px; display: flex; justify-content: center; gap: 10px; }
+.kavu-explore-controls button { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid rgba(244,244,244,.9); border-radius: 50%; background: rgba(254,255,249,.72); color: #243a30; backdrop-filter: blur(9px); }
+.kavu-explore-controls button img { display: block; width: 24px; height: 24px; }
+.kavu-explore-controls button:focus-visible { outline: 2px solid #243a30; outline-offset: 3px; }
+.kavu-footer.is-explore { z-index: 7; }
+@media (max-height: 790px) { .kavu-explore-header { top: 38px; } .kavu-explore-controls { bottom: 118px; } .kavu-explore-hint { bottom: 170px; } }
+.kavu-nav-item:not(.is-active) { color: #61997a; background: transparent; box-shadow: none; }
+.kavu-nav-item.is-active { color: #243a30; background: #b3ff49; border-radius: 100px; box-shadow: inset 0 0 4px rgba(0,0,0,.25); }
+.device-screen .kavu-nav-item.is-active:focus, .device-screen .kavu-nav-item.is-active:focus-visible { box-shadow: inset 0 0 4px rgba(0,0,0,.25) !important; }
+.kavu-nav-item > span:last-child { color: inherit; }
+.kavu-nav-icon { display: block; flex: 0 0 24px; width: 24px; height: 24px; background: currentColor; -webkit-mask-image: var(--kavu-nav-icon); mask-image: var(--kavu-nav-icon); -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
+.kavu-nav-icon--journal { --kavu-nav-icon: url('/assets/home/journal.svg'); }
+.kavu-nav-icon--home { --kavu-nav-icon: url('/assets/home/my-kavu.svg'); }
+.kavu-nav-icon--explore { --kavu-nav-icon: url('/assets/home/explore.svg'); }
+.kavu-nav-icon--care { --kavu-nav-icon: url('/assets/home/care.svg'); }
+.device-screen:has(.kavu-observation), .kavu-home:has(.kavu-observation) { overflow: clip; }
+.kavu-observation { position: absolute; z-index: 8; inset: 0; isolation: isolate; overflow: clip; background: #d5ffc6; color: #243a30; font-family: Urbanist, sans-serif; }
+.kavu-observation::before { content: ''; position: absolute; z-index: -1; inset: -4%; pointer-events: none; background: radial-gradient(ellipse 46% 33% at 18% 43%, rgba(220,250,187,.76), transparent 86%), radial-gradient(ellipse 53% 35% at 100% 87%, rgba(163,244,232,.82), transparent 90%), radial-gradient(ellipse 53% 32% at 0% 100%, rgba(168,250,150,.86), transparent 91%), radial-gradient(ellipse 46% 25% at 0% 3%, rgba(180,244,207,.86), transparent 92%), radial-gradient(ellipse 65% 31% at 87% 0%, rgba(255,189,122,.58), rgba(255,239,216,.42) 48%, transparent 94%), #d5ffc6; animation: kavu-atmosphere 28s ease-in-out infinite alternate; }
+.kavu-observation::after { content: ''; position: absolute; z-index: 5; inset: 0; pointer-events: none; opacity: .075; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.65'/%3E%3C/svg%3E"); mix-blend-mode: soft-light; }
+.kavu-observation-header { position: absolute; z-index: 3; top: 57px; left: 24px; right: 24px; height: 48px; display: flex; align-items: center; justify-content: space-between; }
+.kavu-observation-header span { font: 600 12px/1 Urbanist, sans-serif; letter-spacing: .07em; text-transform: uppercase; }
+.kavu-observation-header button, .kavu-analysis-close, .kavu-analysis-back { display: grid; place-items: center; width: 44px; height: 44px; padding: 0 0 4px; border: 1px solid rgba(244,244,244,.9); border-radius: 50%; background: rgba(254,255,249,.61); color: #243a30; font: 300 30px/1 Urbanist, sans-serif; backdrop-filter: blur(9px); }
+.kavu-observation-progress { position: absolute; z-index: 3; top: 118px; left: 0; right: 0; height: 5px; background: rgba(228,232,217,.8); }
+.kavu-observation-progress span { display: block; height: 100%; border-radius: 0 4px 4px 0; background: #315e48; transition: width 350ms ease; }
+.kavu-observation .kavu-observation-scroll { top: 142px; bottom: 112px; }
+.kavu-observation .kavu-observation-scroll[data-keyboard-visible="true"] { bottom: 0; }
+.kavu-observation-scroll .mobile-scroll-content { padding: 7px 24px 20px; }
+.kavu-observation-content { width: 100%; }
+.kavu-observation-eyebrow { margin: 0 0 var(--kavu-space-sm); color: #52715c; font: 600 11px/1.3 Urbanist, sans-serif; letter-spacing: .07em; }
+.kavu-observation-content h1, .kavu-reveal-content h1 { margin: 0; color: #243a30; font: 300 31px/1.13 Tobias, Georgia, serif; }
+.kavu-observation-subtitle { margin: var(--kavu-space-sm) 0 var(--kavu-space-lg); max-width: 330px; color: #51695d; font: 400 16px/1.35 Urbanist, sans-serif; }
+.kavu-observation-note-row { display: flex; align-items: center; justify-content: space-between; min-height: 23px; margin-bottom: 8px; }
+.kavu-observation-note-label { display: block; color: #344b43; font: 600 12px/1.2 Urbanist, sans-serif; }
+.kavu-observation-note-row button { padding: 3px 0 3px 12px; border: 0; background: transparent; color: #315e48; font: 600 12px/1 Urbanist, sans-serif; }
+.kavu-observation-note { display: block; width: 100%; min-height: 158px; padding: 17px; resize: vertical; border: 1px solid #cbd9bc; border-radius: 18px; background: rgba(254,255,249,.66); color: #243a30; font: 400 16px/1.35 Urbanist, sans-serif; box-shadow: inset 0 1px 4px rgba(69,111,71,.04); }
+.kavu-observation-note::placeholder { color: #789085; }
+.kavu-observation-note:focus-visible { outline: 2px solid #4b8656; outline-offset: 2px; }
+.kavu-mic { display: grid; place-items: center; width: 72px; height: 72px; margin: 22px auto 0; border: 9px solid #a7eaa2; border-radius: 50%; background: #315e48; color: #f8f7f0; box-shadow: 0 3px 15px rgba(62,128,73,.12); }
+.kavu-mic svg { width: 26px; height: 26px; }
+.kavu-mic.is-listening { animation: kavu-listen 1.8s ease-in-out infinite; }
+.kavu-mic-caption { margin: 7px 0 0; text-align: center; font: 600 13px/1.2 Urbanist, sans-serif; }
+.kavu-observation-message { margin: 10px 0 0; color: #566d60; text-align: center; font: 400 12px/1.35 Urbanist, sans-serif; }
+.kavu-mark-photo { position: relative; height: 440px; overflow: hidden; border: 1px solid rgba(255,255,255,.88); border-radius: 24px; background: #f8f7f0; touch-action: none; }
+.kavu-mark-photo > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 45%; user-select: none; pointer-events: none; }
+.kavu-sample-tag { position: absolute; top: 13px; left: 13px; padding: 7px 10px; border-radius: 20px; background: rgba(254,255,249,.77); color: #344b43; font: 600 11px/1 Urbanist, sans-serif; backdrop-filter: blur(9px); }
+.kavu-change-marker { position: absolute; width: 29px; height: 29px; border: 2px solid #fff8cb; border-radius: 50%; background: rgba(237,212,96,.58); box-shadow: 0 0 0 9px rgba(243,222,127,.28); transform: translate(-50%,-50%); pointer-events: none; }
+.kavu-mark-gallery { margin-top: 16px; }
+.kavu-mark-gallery p { margin: 0 0 8px; color: #344b43; font: 600 12px/1.2 Urbanist, sans-serif; }
+.kavu-mark-thumbnails { display: flex; gap: 8px; overflow-x: auto; padding: 2px 1px 5px; }
+.kavu-mark-thumbnails button { flex: 0 0 52px; width: 52px; height: 52px; overflow: hidden; padding: 0; border: 2px solid rgba(255,255,255,.8); border-radius: 11px; background: #f8f7f0; }
+.kavu-mark-thumbnails button.is-selected { border-color: #315e48; box-shadow: 0 0 0 2px rgba(179,255,73,.8); }
+.kavu-mark-thumbnails img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.kavu-mark-helper { margin: var(--kavu-space-md) 0 0; color: #51695d; text-align: center; font: 400 13px/1.3 Urbanist, sans-serif; }
+.kavu-skip-mark { display: block; margin: 12px auto 0; padding: 8px 12px; border: 0; background: transparent; color: #315e48; font: 600 13px/1 Urbanist, sans-serif; text-decoration: underline; }
+.kavu-camera-frame { position: relative; height: 440px; overflow: hidden; border: 1px solid rgba(255,255,255,.9); border-radius: 24px; background: #26302c; }
+.kavu-camera-frame > video, .kavu-camera-frame > img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.kavu-camera-count { position: absolute; z-index: 2; top: 13px; right: 13px; padding: 7px 10px; border-radius: 20px; background: rgba(36,58,48,.68); color: #f8f7f0; font: 600 11px/1 Urbanist, sans-serif; }
+.kavu-camera-angle { position: absolute; z-index: 2; top: 13px; left: 50%; padding: 7px 11px; border-radius: 20px; background: rgba(36,58,48,.58); color: #f8f7f0; font: 600 11px/1 Urbanist, sans-serif; transform: translateX(-50%); }
+.kavu-camera-empty { position: relative; width: 100%; height: 100%; }
+.kavu-camera-empty img { display: block; width: 100%; height: 100%; object-fit: contain; opacity: .75; filter: saturate(.7); }
+.kavu-camera-empty span { position: absolute; bottom: 110px; left: 12px; right: 12px; color: #f8f7f0; text-align: center; font: 500 13px/1.2 Urbanist, sans-serif; }
+.kavu-shutter { position: absolute; z-index: 3; bottom: 21px; left: 50%; width: 62px; height: 62px; border: 2px solid rgba(238,255,225,.58); border-radius: 50%; background: rgba(228,245,220,.34); box-shadow: inset 0 0 0 6px rgba(255,255,255,.05); transform: translateX(-50%); backdrop-filter: blur(3px); }
+.kavu-shutter:disabled { opacity: .42; }
+.kavu-camera-last-photo { position: absolute; z-index: 3; right: 20px; bottom: 23px; width: 62px; height: 62px; }
+.kavu-camera-thumbnail { width: 100%; height: 100%; overflow: hidden; padding: 0; border: 2px solid #fffdf4; border-radius: 12px; background: #f8f7f0; }
+.kavu-camera-thumbnail img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.kavu-camera-remove { position: absolute; top: -8px; right: -8px; display: grid; place-items: center; width: 22px; height: 22px; padding: 0 0 2px; border: 1.5px solid white; border-radius: 50%; background: #c95758; color: white; font: 600 17px/1 Urbanist, sans-serif; }
+.kavu-photo-preview { position: absolute; z-index: 20; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; padding: 60px 24px; background: rgba(27,47,38,.95); }
+.kavu-photo-preview > img { width: 100%; max-height: 70%; border-radius: 22px; object-fit: contain; }
+.kavu-photo-preview-close { position: absolute; top: 56px; right: 24px; width: 44px; height: 44px; border: 1px solid #fff; border-radius: 50%; background: rgba(255,255,255,.16); color: white; font-size: 26px; }
+.kavu-photo-preview > div { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.kavu-photo-preview > div button { min-height: 42px; padding: 0 14px; border: 1px solid #d6e4d3; border-radius: 22px; background: #f8f7f0; color: #243a30; font: 600 13px Urbanist, sans-serif; }
+.kavu-camera-actions { position: absolute; z-index: 2; top: 13px; left: 13px; display: flex; flex-wrap: wrap; gap: 8px; }
+.kavu-camera-actions button { min-height: 38px; padding: 0 12px; border: 1px solid #cbd9bc; border-radius: 20px; background: rgba(254,255,249,.7); color: #315e48; font: 600 12px/1 Urbanist, sans-serif; }
+.kavu-camera-actions button:disabled { opacity: .45; }
+.kavu-camera-fallback { padding: 0; border: 0; background: transparent; color: #315e48; font: 600 12px/1.35 Urbanist, sans-serif; text-decoration: underline; }
+.kavu-photo-strip { display: flex; justify-content: center; gap: 8px; margin-top: 12px; }
+.kavu-photo-strip button { width: 47px; height: 47px; overflow: hidden; padding: 0; border: 2px solid transparent; border-radius: 11px; background: #f8f7f0; }
+.kavu-photo-strip button.is-selected { border-color: #315e48; }
+.kavu-photo-strip img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.kavu-observation-action { position: absolute; z-index: 3; left: 24px; right: 24px; bottom: 34px; }
+.kavu-observation-action button, .kavu-reveal-done { display: flex; align-items: center; justify-content: space-between; width: 100%; height: 55px; padding: 0 18px; border: 1px solid rgba(246,251,244,.79); border-radius: 24px; background: linear-gradient(165deg, #60a50c, #16824d); color: #f2ffd8; box-shadow: 0 5px 18px rgba(67,130,46,.13), inset 0 1px 5px rgba(255,255,255,.19); font: 600 16px/1 Urbanist, sans-serif; }
+.kavu-observation-action button:disabled { background: rgba(113,143,111,.62); color: #f5f7ed; box-shadow: none; }
+.kavu-observation-action button span, .kavu-reveal-done span { font-size: 24px; font-weight: 300; }
+.kavu-footer.is-observation { z-index: 10; }
+.kavu-footer.is-observation .kavu-safe-tint { background: linear-gradient(180deg, rgba(214,239,186,.04), rgba(173,220,155,.3)); }
+.kavu-observation.is-analyzing { z-index: 11; background: #243a30; color: #fbfaf5; }
+.kavu-observation.is-analyzing::before { background: radial-gradient(circle at 50% 37%, rgba(34,120,64,.34), transparent 35%), #243a30; animation: none; }
+.kavu-analysis-close, .kavu-analysis-back { position: absolute; z-index: 4; top: 59px; border-color: rgba(255,255,255,.15); background: rgba(255,255,255,.09); color: #fbfaf5; }
+.kavu-analysis-close { right: 24px; }
+.kavu-analysis-back { left: 24px; }
+.kavu-analysis-center { position: absolute; inset: 0 25px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.kavu-analysis-eyebrow { margin: 119px 0 0; color: #b2c7ad; font: 600 11px/1 Urbanist, sans-serif; letter-spacing: .09em; }
+.kavu-analysis-orb { display: grid; place-items: center; width: 158px; height: 158px; flex: 0 0 158px; margin-top: 92px; border-radius: 50%; background: radial-gradient(circle, #0e944a 0 42%, rgba(19,147,72,.35) 57%, transparent 73%); animation: kavu-breathe 3s ease-in-out infinite; }
+.kavu-analysis-orb span { color: #e7d477; font-size: 59px; }
+.kavu-analysis-center h1 { margin: 42px 0 0; color: #fbfaf5; font: 300 31px/1.15 Tobias, Georgia, serif; }
+.kavu-analysis-center > p:last-child { margin: 55px 0 0; max-width: 290px; color: #b2c7ad; font: 400 15px/1.4 Urbanist, sans-serif; }
+.kavu-observation .kavu-reveal-scroll { top: 123px; bottom: 34px; }
+.kavu-reveal-scroll .mobile-scroll-content { padding: 4px 24px 30px; }
+.kavu-reveal-content { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.kavu-reveal-content .kavu-observation-eyebrow { align-self: stretch; color: #b2c7ad; text-align: left; }
+.kavu-vanaspati { display: grid; place-items: center; width: 128px; height: 128px; margin: 25px auto 18px; border-radius: 50%; background: radial-gradient(circle at 45% 38%, #91eaa0, #35aa69 58%, #17794e 78%); box-shadow: 0 0 0 13px rgba(114,212,123,.11), 0 16px 40px rgba(5,31,20,.25); animation: kavu-breathe 3s ease-in-out infinite; }
+.kavu-vanaspati-leaf { color: #f1da85; font-size: 62px; }
+.kavu-reveal-kicker { margin: 0 0 9px; color: #b6d5ae; font: 600 12px/1 Urbanist, sans-serif; letter-spacing: .07em; text-transform: uppercase; }
+.kavu-reveal-content h1 { color: #fbfaf5; }
+.kavu-reveal-summary { margin: 15px 0 0; color: #ebf4e5; font: 400 16px/1.45 Urbanist, sans-serif; }
+.kavu-reveal-detail { width: 100%; margin-top: 22px; padding: 18px; border: 1px solid rgba(229,245,221,.17); border-radius: 18px; background: rgba(255,255,255,.08); text-align: left; }
+.kavu-reveal-detail p { margin: 0; color: #ddebd8; font: 400 13px/1.45 Urbanist, sans-serif; }
+.kavu-reveal-detail p + p { margin-top: 15px; }
+.kavu-reveal-detail strong { color: #fbfaf5; font-weight: 600; }
+.kavu-reveal-clue { margin: 22px 0; color: #d6e7ce; font: 300 20px/1.25 Tobias, Georgia, serif; }
+.kavu-reveal-done { margin-bottom: 20px; }
+@keyframes kavu-listen { 50% { box-shadow: 0 0 0 10px rgba(163,244,168,.2); } }
+@keyframes kavu-breathe { 50% { transform: scale(1.04); } }
+@media (prefers-reduced-motion: reduce) { .kavu-observation::before, .kavu-mic.is-listening, .kavu-analysis-orb, .kavu-vanaspati { animation: none; } }
+@layer kavu-previous {
+.kavu-header { position: absolute; z-index: 2; top: 65px; left: 29px; right: 24px; height: 42px; display: flex; align-items: center; justify-content: space-between; }
+.kavu-brand { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 500; }
+.kavu-menu-icon { display: block; width: 24px; height: 24px; }
+.kavu-avatar { display: block; width: 41px; height: 41px; }
+.kavu-greeting { position: absolute; z-index: 2; left: 29px; right: 24px; top: 131px; }
+.kavu-greeting h1 { margin: 0; font: 300 32px/1.15 "Tobias", "Iowan Old Style", "Baskerville", Georgia, serif; letter-spacing: -.8px; white-space: nowrap; }
+.kavu-greeting p { margin: 11px 0 0 3px; font-size: 20px; font-weight: 300; }
+.kavu-visual { position: absolute; left: 12px; right: 12px; top: 30%; height: 38%; min-height: 270px; max-height: 360px; }
+.kavu-island-scene { width: 100%; height: 100%; overflow: hidden; touch-action: none; }
+.kavu-island-scene canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+.kavu-home-bottom { position: absolute; z-index: 2; left: 20px; right: 20px; bottom: max(60px, calc(7.5% + 3px)); display: flex; flex-direction: column; align-items: center; }
+.kavu-assessment { margin: 0; text-align: center; font-size: 16px; line-height: 1.35; font-weight: 400; }
+.kavu-observation-status { display: flex; align-items: center; gap: 14px; margin-top: 49px; white-space: nowrap; font-size: 14px; font-weight: 300; }
+.kavu-status-dot { display: block; width: 10px; height: 10px; }
+@property --kavu-cta-angle { syntax: '<angle>'; inherits: false; initial-value: 165deg; }
+.kavu-start { --kavu-cta-angle: 165deg; position: relative; isolation: isolate; display: flex; align-items: center; justify-content: center; gap: 12px; width: 256px; min-height: 48px; margin-top: 28px; padding: 5px 12px 5px 20px; border: 1px solid rgba(239,255,210,.58); border-radius: 25px; color: #f6ffdf; background: linear-gradient(var(--kavu-cta-angle), #134f49 0%, #1b7554 48%, #55b645 100%); box-shadow: 0 8px 22px rgba(67,130,46,.19), 0 2px 12px rgba(24,70,54,.13), inset 0 1px 0 rgba(255,255,229,.38), inset 0 -1px 3px rgba(14,67,54,.24); font: 600 16px/1 Urbanist, "Avenir Next", Avenir, ui-sans-serif, system-ui, sans-serif; cursor: pointer; transform: scale(1); transition: transform 420ms cubic-bezier(.2,1.35,.4,1), box-shadow 300ms ease; animation: kavu-cta-gradient 14s linear infinite; }
+.kavu-start::before { content: ''; position: absolute; z-index: -1; inset: 2px; border-radius: inherit; background: radial-gradient(ellipse 70% 85% at 23% 0%, rgba(145,244,224,.25), transparent 75%); pointer-events: none; }
+.kavu-start-label { white-space: nowrap; }
+.kavu-arrow-pocket { display: grid; place-items: center; flex: 0 0 31px; width: 31px; height: 31px; border-radius: 50%; background: linear-gradient(145deg, rgba(224,255,170,.25), rgba(210,255,188,.08)); box-shadow: inset 0 1px 1px rgba(255,255,226,.3), 0 1px 4px rgba(8,57,40,.12); }
+.kavu-arrow { display: block; width: 19px; height: 19px; background: currentColor; -webkit-mask: url('/assets/home/arrow-right.svg') center / contain no-repeat; mask: url('/assets/home/arrow-right.svg') center / contain no-repeat; }
+.kavu-start:active { transform: scale(.97); box-shadow: 0 3px 11px rgba(34,100,58,.19), inset 0 2px 5px rgba(8,58,43,.24); transition-duration: 120ms; }
+.kavu-start:focus-visible { outline: 2px solid #243a30; outline-offset: 3px; }
+@keyframes kavu-cta-gradient { to { --kavu-cta-angle: 525deg; } }
+@media (prefers-reduced-motion: reduce) { .kavu-start { animation: none; transition: none; } }
+@media (max-height: 790px) { .kavu-header { top: 56px; } .kavu-greeting { top: 120px; } .kavu-visual { top: 27%; height: 38%; } .kavu-home-bottom { bottom: 55px; } .kavu-observation-status { margin-top: 30px; } .kavu-start { margin-top: 20px; } }
+@media (min-height: 900px) { .kavu-visual { top: 32%; height: 38%; } .kavu-home-bottom { bottom: 80px; } }
+}

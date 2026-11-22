@@ -1,0 +1,185 @@
+2:45:32 AM [vite] (client) [console.error] [vite] SyntaxError: The requested module '/src/pastel-shaders.ts?t=1795034619538' does not provide an export named 'shorelineFragment'
+2:45:32 AM [vite] (client) [console.error] [vite] Failed to reload /src/Prototype.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+9:54:16 PM [vite] (client) [console.error] [vite] Failed to reload /src/Prototype.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+9:54:19 PM [vite] (client) [console.warn] THREE.WARNING: Multiple instances of Three.js being imported.
+9:54:19 PM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+9:54:21 PM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+9:54:21 PM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+11:39:12 PM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+11:39:12 PM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+2:59:27 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+2:59:27 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+4:09:09 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+4:09:20 AM [vite] (client) [console.error] [vite] Failed to reload /src/prototype.css. This could be due to syntax errors or importing non-existent modules. (see errors above)
+2:06:50 PM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+2:06:50 PM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+6:19:48 PM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+6:19:48 PM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+9:18:15 PM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+9:18:15 PM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:33:34 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:33:34 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:34:45 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:34:45 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:34:47 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:34:47 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:35:14 AM [vite] (client) Pre-transform error: Failed to resolve import "./home-final.css" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/src/main.tsx:7:7
+  5  |  import "./styles.css";
+  6  |  import "./prototype.css";
+  7  |  import "./home-final.css";
+     |          ^
+  8  |  var _jsxFileName = "C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/sr...
+  9  |  import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime";
+12:35:14 AM [vite] Internal server error: Failed to resolve import "./home-final.css" from "src/main.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/src/main.tsx:7:7
+  5  |  import "./styles.css";
+  6  |  import "./prototype.css";
+  7  |  import "./home-final.css";
+     |          ^
+  8  |  var _jsxFileName = "C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/sr...
+  9  |  import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime";
+      at TransformPluginContext._formatLog (file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:29960:39)
+      at TransformPluginContext.error (file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:29957:14)
+      at normalizeUrl (file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:26993:18)
+      at async file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:27056:30
+      at async Promise.all (index 6)
+      at async TransformPluginContext.transform (file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:27024:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:29745:14)
+      at async loadAndTransform (file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:19729:26)
+      at async viteTransformMiddleware (file:///C:/Users/anasw/.codex/.chatgpt-projects/g-p-6aac1f8eb52081919858b6a8b26c968e/kavu-meadow-webgl/node_modules/vite/dist/node/chunks/node.js:24160:20)
+12:35:17 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:35:17 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:35:32 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:35:32 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:35:36 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:35:36 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:35:47 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:35:47 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:35:48 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:35:48 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:35:52 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:35:52 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:36:56 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:36:56 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:36:57 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:36:57 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:36:58 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:36:58 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:37:00 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:37:00 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:37:23 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:37:23 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:37:24 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:37:24 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:38:20 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:38:20 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:38:22 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:38:22 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:38:23 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:38:23 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:38:28 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:38:28 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:38:30 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:38:30 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:38:39 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:38:39 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:38:41 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:38:41 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:38:44 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:38:44 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:43:09 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:43:09 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:43:11 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:43:11 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:43:45 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:43:45 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:43:49 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:43:49 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:44:51 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:44:51 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:44:59 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:44:59 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:45:01 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:45:01 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:45:06 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:45:06 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:45:13 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:45:13 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:45:16 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:45:16 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:45:20 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:45:20 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:45:27 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:45:27 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:45:38 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+12:45:38 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:00:12 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:00:12 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:03:48 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:03:48 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:16:56 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:16:56 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:17:03 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:17:03 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:17:12 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:17:12 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:17:23 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:17:23 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:25:32 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:25:32 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:26:11 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:26:11 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:37:22 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:37:22 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:37:24 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:37:24 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:37:40 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:37:40 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:38:22 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:38:22 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:40:37 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:40:37 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:40:46 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:40:46 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:49:41 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:49:41 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:49:48 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:49:48 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:50:07 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:50:07 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+2:41:10 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+4:06:26 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+4:11:49 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+4:11:49 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+4:12:30 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+4:12:30 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+4:26:58 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:30:58 PM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+1:30:58 PM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+4:16:54 PM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+7:06:40 PM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+7:06:40 PM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+9:20:14 PM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+9:20:14 PM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+11:40:45 PM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+11:40:45 PM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+2:34:29 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+2:34:29 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+2:44:23 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+2:44:23 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+2:44:24 AM [vite] (client) [console.error] Tree failed to load TypeError: Failed to fetch
+    at FileLoader.load (http://127.0.0.1:4174/node_modules/.vite/deps/three.module-hMGRbWHz.js?v=d6bdffa5:31804:3)
+    at GLTFLoader.load (http://127.0.0.1:4174/node_modules/.vite/deps/three_addons_loaders_GLTFLoader__js.js?v=d6bdffa5:248:10)
+    at http://127.0.0.1:4174/node_modules/.vite/deps/three.module-hMGRbWHz.js?v=d6bdffa5:31611:10
+    at new Promise (<anonymous>)
+    at GLTFLoader.loadAsync (http://127.0.0.1:4174/node_modules/.vite/deps/three.module-hMGRbWHz.js?v=d6bdffa5:31610:10)
+    at http://127.0.0.1:4174/src/Prototype.tsx?t=1795295543083:124:21
+2:44:24 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+2:44:24 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+3:20:15 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+3:20:15 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+3:25:21 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
+3:25:21 AM [vite] (client) [console.warn] THREE.GLTFLoader: Unknown extension "KHR_materials_pbrSpecularGlossiness".
