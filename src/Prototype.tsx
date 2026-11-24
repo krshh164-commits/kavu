@@ -7,6 +7,7 @@ import { KeyboardTextarea, useKeyboard, useKeyboardInsets } from './mobile/Keybo
 import { createPaintedWorld, type WorldController } from './painted-world';
 import { VanaspatiReveal } from './VanaspatiReveal';
 import { CarePage } from './CarePage';
+import { AmbientMusic } from './AmbientMusic';
 
 const collection = [
   { name: 'Rock', image: '/assets/profile/mossy-rock.png', unlocked: true },
@@ -683,6 +684,7 @@ export default function Prototype() {
     <main className="kavu-home">
       <header className="kavu-header">
         <button className="kavu-header-control" type="button" aria-label="Open menu"><img src="/assets/home/menu-final.svg" alt="" /></button>
+        <AmbientMusic quiet={observationOpen} />
         <button className="kavu-header-control" type="button" aria-label="Profile" onClick={() => setProfileOpen(true)}><img className="kavu-avatar" src="/assets/home/profile-final.png" alt="" /></button>
       </header>
       <section className="kavu-main">
