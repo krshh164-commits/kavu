@@ -238,6 +238,9 @@ function IslandScene({ rockVisible }: { rockVisible: boolean }) {
     const model = new THREE.Group();
     model.scale.setScalar(1.2);
     scene.add(model);
+    type Placeable = { name: 'tree' | 'rock'; group: InstanceType<typeof THREE.Group>; art: InstanceType<typeof THREE.Group>; radius: number; restY: number; home: InstanceType<typeof THREE.Vector3> };
+    const placeables: Placeable[] = [];
+    let islandSurface: InstanceType<typeof THREE.Group> | null = null;
     let disposed = false;
     const pastelMaps = new Map<any, any>();
     const pastelize = (source: any) => {
@@ -291,6 +294,7 @@ function IslandScene({ rockVisible }: { rockVisible: boolean }) {
         }
       });
       model.add(gltf.scene);
+      islandSurface = gltf.scene;
       new GLTFLoader().loadAsync('/assets/island-test/tree.glb').then((treeAsset: any) => {
         if (disposed) return;
         const tree = treeAsset.scene;
@@ -300,7 +304,24 @@ function IslandScene({ rockVisible }: { rockVisible: boolean }) {
         tree.position.sub(treeCenter);
         tree.scale.setScalar(0.92 / Math.max(treeSize.x, treeSize.y, treeSize.z));
         tree.position.y += 0.64;
-        model.add(tree);
+        const treeGroup = new THREE.Group();
+        const treeShadowCanvas = document.createElement('canvas');
+        treeShadowCanvas.width = treeShadowCanvas.height = 96;
+        const treeShadowContext = treeShadowCanvas.getContext('2d')!;
+        const treeShadowGradient = treeShadowContext.createRadialGradient(48, 48, 5, 48, 48, 45);
+        treeShadowGradient.addColorStop(0, 'rgba(45,67,41,.27)');
+        treeShadowGradient.addColorStop(1, 'rgba(45,67,41,0)');
+        treeShadowContext.fillStyle = treeShadowGradient;
+        treeShadowContext.fillRect(0, 0, 96, 96);
+        const treeShadowTexture = new THREE.CanvasTexture(treeShadowCanvas);
+        pastelMaps.set(treeShadowTexture, treeShadowTexture);
+        const treeShadow = new THREE.Mesh(new THREE.PlaneGeometry(.42, .32), new THREE.MeshBasicMaterial({ map: treeShadowTexture, transparent: true, depthWrite: false }));
+        treeShadow.rotation.x = -Math.PI / 2;
+        treeShadow.position.set(0, .145, 0);
+        treeGroup.add(treeShadow);
+        treeGroup.add(tree);
+        model.add(treeGroup);
+        placeables.push({ name: 'tree', group: treeGroup, art: tree, radius: .19, restY: tree.position.y, home: treeGroup.position.clone() });
         new GLTFLoader().loadAsync('/assets/home/low-poly-rock/scene.gltf').then((rockAsset: any) => {
           if (disposed) return;
           const rock = rockAsset.scene;
@@ -343,9 +364,13 @@ function IslandScene({ rockVisible }: { rockVisible: boolean }) {
           shadow.position.set(.42, .145, .28);
           const rockGroup = new THREE.Group();
           rockGroup.visible = rockVisibleRef.current;
+          rock.position.x -= .42; rock.position.z -= .28;
+          shadow.position.x -= .42; shadow.position.z -= .28;
+          rockGroup.position.set(.42, 0, .28);
           rockGroup.add(shadow, rock);
           rockGroupRef.current = rockGroup;
           model.add(rockGroup);
+          placeables.push({ name: 'rock', group: rockGroup, art: rock, radius: .13, restY: rock.position.y, home: rockGroup.position.clone() });
         }).catch((error: unknown) => console.error('Rock failed to load', error));
       }).catch((error: unknown) => console.error('Tree failed to load', error));
     }).catch((error: unknown) => console.error('Island test failed to load', error));
@@ -353,22 +378,76 @@ function IslandScene({ rockVisible }: { rockVisible: boolean }) {
     const observer = new ResizeObserver(resize);
     observer.observe(el);
     resize();
-    let downX = 0, downAngle = 0, dragging = false, raf = 0;
+    let downX = 0, downY = 0, downAngle = 0, dragging = false, raf = 0;
     const canvas = renderer.domElement;
     canvas.style.touchAction = 'none';
-    const start = (event: PointerEvent) => { dragging = true; downX = event.clientX; downAngle = model.rotation.y; canvas.setPointerCapture(event.pointerId); };
-    const move = (event: PointerEvent) => { if (dragging) model.rotation.y = downAngle + (event.clientX - downX) * .012; };
-    const end = () => { dragging = false; };
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
+    const toRay = (x: number, y: number) => { const rect = canvas.getBoundingClientRect(); pointer.set((x - rect.left) / rect.width * 2 - 1, -((y - rect.top) / rect.height * 2 - 1)); raycaster.setFromCamera(pointer, camera); };
+    const pick = (x: number, y: number) => { toRay(x, y); return placeables.filter(item => item.group.visible).map(item => ({ item, hit: raycaster.intersectObject(item.art, true)[0] })).filter(candidate => candidate.hit).sort((a, b) => a.hit.distance - b.hit.distance)[0]?.item ?? null; };
+    const surfaceAt = (x: number, z: number) => {
+      if (!islandSurface) return false;
+      const origin = model.localToWorld(new THREE.Vector3(x, 3, z));
+      raycaster.set(origin, new THREE.Vector3(0, -1, 0));
+      return raycaster.intersectObject(islandSurface, true).some((hit: any) => {
+        if (!hit.face) return false;
+        const normal = hit.face.normal.clone().transformDirection(hit.object.matrixWorld);
+        return normal.y > .48;
+      });
+    };
+    const validPosition = (item: Placeable) => {
+      const x = item.group.position.x, z = item.group.position.z, r = item.radius;
+      const samples = [[0, 0], [r, 0], [-r, 0], [0, r], [0, -r]].map(([dx, dz]) => surfaceAt(x + dx, z + dz));
+      const clear = placeables.every(other => other === item || !other.group.visible || Math.hypot(x - other.group.position.x, z - other.group.position.z) >= r + other.radius + .035);
+      return samples.every(Boolean) && clear;
+    };
+    let holdTimer: ReturnType<typeof setTimeout> | null = null;
+    let candidate: Placeable | null = null, picked: Placeable | null = null;
+    let pointerId: number | null = null;
+    let dragOrigin = new THREE.Vector3();
+    const grabOffset = new THREE.Vector2();
+    const dragPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), -.18 * model.scale.y);
+    let returning: { item: Placeable; from: InstanceType<typeof THREE.Vector3>; to: InstanceType<typeof THREE.Vector3>; start: number } | null = null;
+    const clearHold = () => { if (holdTimer) clearTimeout(holdTimer); holdTimer = null; };
+    const start = (event: PointerEvent) => {
+      if (pointerId !== null) return;
+      pointerId = event.pointerId; dragging = true; downX = event.clientX; downY = event.clientY; downAngle = model.rotation.y;
+      candidate = pick(event.clientX, event.clientY); picked = null;
+      if (candidate) holdTimer = setTimeout(() => { picked = candidate; candidate = null; if (picked) { dragOrigin.copy(picked.group.position); returning = null; toRay(downX, downY); const hit = new THREE.Vector3(); if (raycaster.ray.intersectPlane(dragPlane, hit)) { const local = model.worldToLocal(hit); grabOffset.set(local.x - picked.group.position.x, local.z - picked.group.position.z); } else grabOffset.set(0, 0); picked.art.position.y = picked.restY + .085; canvas.style.cursor = 'grabbing'; } }, 1000);
+      canvas.setPointerCapture(event.pointerId);
+    };
+    const move = (event: PointerEvent) => {
+      if (!dragging || event.pointerId !== pointerId) return;
+      const distance = Math.hypot(event.clientX - downX, event.clientY - downY);
+      if (candidate && distance > 8) { clearHold(); candidate = null; }
+      if (picked) {
+        toRay(event.clientX, event.clientY);
+        const hit = new THREE.Vector3();
+        if (raycaster.ray.intersectPlane(dragPlane, hit)) { const local = model.worldToLocal(hit); picked.group.position.x = local.x - grabOffset.x; picked.group.position.z = local.z - grabOffset.y; }
+      } else if (!candidate) model.rotation.y = downAngle + (event.clientX - downX) * .012;
+    };
+    const end = (event: PointerEvent, canceled = false) => {
+      if (event.pointerId !== pointerId) return;
+      clearHold(); candidate = null; dragging = false; pointerId = null; canvas.style.cursor = '';
+      if (picked) {
+        picked.art.position.y = picked.restY;
+        const valid = !canceled && validPosition(picked);
+        if (!valid) returning = { item: picked, from: picked.group.position.clone(), to: dragOrigin.clone(), start: performance.now() };
+        picked = null;
+      }
+      if (canvas.hasPointerCapture(event.pointerId)) canvas.releasePointerCapture(event.pointerId);
+    };
+    const cancel = (event: PointerEvent) => end(event, true);
     canvas.addEventListener('pointerdown', start);
     canvas.addEventListener('pointermove', move);
     canvas.addEventListener('pointerup', end);
-    canvas.addEventListener('pointercancel', end);
-    const draw = () => { renderer.render(scene, camera); raf = requestAnimationFrame(draw); };
+    canvas.addEventListener('pointercancel', cancel);
+    const draw = () => { if (returning) { const t = Math.min(1, (performance.now() - returning.start) / 240); returning.item.group.position.lerpVectors(returning.from, returning.to, 1 - Math.pow(1 - t, 3)); if (t === 1) returning = null; } renderer.render(scene, camera); raf = requestAnimationFrame(draw); };
     draw();
-    return () => { disposed = true; rockGroupRef.current = null; cancelAnimationFrame(raf); observer.disconnect(); canvas.removeEventListener('pointerdown', start); canvas.removeEventListener('pointermove', move); canvas.removeEventListener('pointerup', end); canvas.removeEventListener('pointercancel', end); pastelMaps.forEach(texture => texture.dispose()); renderer.dispose(); canvas.remove(); };
+    return () => { disposed = true; clearHold(); rockGroupRef.current = null; cancelAnimationFrame(raf); observer.disconnect(); canvas.removeEventListener('pointerdown', start); canvas.removeEventListener('pointermove', move); canvas.removeEventListener('pointerup', end); canvas.removeEventListener('pointercancel', cancel); pastelMaps.forEach(texture => texture.dispose()); renderer.dispose(); canvas.remove(); };
   }, []);
   useEffect(() => { if (rockGroupRef.current) rockGroupRef.current.visible = rockVisible; }, [rockVisible]);
-  return <div ref={host} className="kavu-island-scene" role="img" aria-label="Interactive island. Swipe horizontally to rotate it." />;
+  return <div ref={host} className="kavu-island-scene" role="img" aria-label="Interactive island. Swipe to rotate it. Touch and hold the tree or rock for one second to move it." />;
 }
 
 function ExploreWorld() {
