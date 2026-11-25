@@ -69,6 +69,24 @@
 .kavu-rock-dialog-actions button:active { transform: scale(.97); }
 .kavu-rock-dialog-actions button:focus-visible { outline: 2px solid #243a30; outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) { .kavu-rock-dialog-actions button { transition: none; } }
+.kavu-vanaspati-invite, .kavu-vanaspati-camera { position: absolute; z-index: 7; inset: 0; overflow: hidden; }
+.kavu-vanaspati-invite { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 64px 28px calc(64px + var(--mobile-safe-area-height, 0px)); background: radial-gradient(ellipse at 25% 18%, #d4ffe3, transparent 48%), radial-gradient(ellipse at 84% 10%, #f9ebba, transparent 45%), linear-gradient(#e6f8ce,#adfa99); text-align: center; }
+.kavu-vanaspati-invite-character { width: min(54vw, 210px); height: min(54vw, 210px); margin-bottom: 24px; }
+.kavu-vanaspati-invite-character canvas { display: block; width: 100%; height: 100%; }
+.kavu-vanaspati-invite h1 { max-width: 330px; margin: 0; color: #243a30; font: 300 29px/1.2 Tobias, Georgia, serif; }
+.kavu-vanaspati-invite > p { max-width: 330px; margin: 12px 0 0; color: #405f4b; font: 500 16px/1.45 Urbanist, sans-serif; }
+.kavu-vanaspati-invite .kavu-vanaspati-camera-message { margin-top: 16px; padding: 12px 14px; border-radius: 14px; background: rgba(255,253,239,.78); color: #405f4b; font-size: 14px; }
+.kavu-vanaspati-invite-actions { position: absolute; right: 24px; bottom: calc(40px + var(--mobile-safe-area-height, 0px)); left: 24px; display: flex; justify-content: center; gap: 12px; }
+.kavu-vanaspati-invite-actions button, .kavu-vanaspati-camera > button { min-width: 112px; min-height: 50px; padding: 0 22px; border: 0; border-radius: 28px; background: #3B6D47; color: #f6ffdf; font: 600 15px/1 Urbanist, sans-serif; }
+.kavu-vanaspati-invite-actions button:first-child { border: 1px solid rgba(59,109,71,.28); background: rgba(255,253,239,.76); color: #315a43; }
+.kavu-vanaspati-camera { display: grid; place-items: center; background: #17201c; color: #fff9e8; }
+.kavu-vanaspati-camera > video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.kavu-vanaspati-camera-vignette { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(12,26,20,.24), transparent 34%, transparent 63%, rgba(12,26,20,.55)); pointer-events: none; }
+.kavu-vanaspati-camera-character { position: relative; width: min(48vw, 190px); height: min(48vw, 190px); filter: drop-shadow(0 12px 22px rgba(12,26,20,.38)); }
+.kavu-vanaspati-camera-character canvas { display: block; width: 100%; height: 100%; }
+.kavu-vanaspati-camera > p { position: absolute; right: 24px; bottom: calc(116px + var(--mobile-safe-area-height, 0px)); left: 24px; margin: 0; color: #fff9e8; font: 500 17px/1.4 Urbanist, sans-serif; text-align: center; text-shadow: 0 2px 10px rgba(12,26,20,.5); }
+.kavu-vanaspati-camera > button { position: absolute; bottom: calc(42px + var(--mobile-safe-area-height, 0px)); left: 50%; transform: translateX(-50%); }
+.kavu-vanaspati-invite button:focus-visible, .kavu-vanaspati-camera button:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 @media (max-height: 790px) { .kavu-profile-header { top: 38px; } .kavu-profile .kavu-profile-scroll { top: 92px; } }
 @media (prefers-reduced-motion: reduce) { .kavu-profile::before { animation: none; } }
 
@@ -166,7 +184,7 @@
 .kavu-journal { position: absolute; z-index: 5; inset: 0; overflow: hidden; color: #243a30; background: radial-gradient(ellipse at 75% 0%, #f8f1cb, transparent 50%), #d5ffc6; font-family: Urbanist, sans-serif; }
 .kavu-journal-header { position: absolute; z-index: 2; top: 60px; left: 24px; right: 24px; height: 44px; display: flex; align-items: center; justify-content: space-between; }
 .kavu-journal-header h1 { margin: 0; font: 300 31px/1 Tobias, Georgia, serif; }
-.kavu-journal-header span { color: #428063; font-size: 13px; }
+.kavu-journal-header > span { color: #428063; font-size: 13px; }
 .kavu-journal .kavu-journal-scroll { top: 116px; bottom: 105px; }
 .kavu-journal-scroll .mobile-scroll-content { padding: 0 18px 28px; }
 .kavu-diary-page { min-height: 980px; padding: 34px 22px 54px 54px; background: #fbf8e9 url('/assets/journal/diary-page.png') center top / 100% 100% no-repeat; box-shadow: 0 8px 28px rgba(46,77,48,.1); }
@@ -177,7 +195,8 @@
 .kavu-diary-photo { margin: 0 0 24px; }
 .kavu-diary-photo img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 45%; border: 6px solid #fffdf4; box-shadow: 0 2px 12px rgba(59,61,36,.16); user-select: none; }
 .kavu-diary-photo figcaption { margin: 9px 2px 0; color: #71816c; font-size: 12px; }
-.kavu-diary-content blockquote { margin: 0 0 28px; color: #344b43; font: 300 22px/1.22 Tobias, Georgia, serif; }
+.kavu-diary-content blockquote { margin: 0 0 28px; color: #446a54; font: 500 26px/1.05 Caveat, cursive; }
+.kavu-diary-content blockquote span { display: inline; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='9' viewBox='0 0 140 9'%3E%3Cpath d='M2 6 Q34 3 69 5 T138 4' fill='none' stroke='%2383a276' stroke-opacity='.57' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M6 8 Q48 5 92 7 T136 6' fill='none' stroke='%23b1b18a' stroke-opacity='.28' stroke-width='.8'/%3E%3C/svg%3E") left bottom / 140px 9px repeat-x; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
 .kavu-diary-content section { margin-top: var(--kavu-space-xl); }
 .kavu-diary-content h3 { margin: 0 0 8px; font: 600 15px/1.25 Urbanist, sans-serif; }
 .kavu-diary-content section p { margin: 0; color: #405449; font: 400 14px/1.55 Urbanist, sans-serif; }
@@ -187,6 +206,12 @@
 .kavu-explore { position: absolute; z-index: 5; inset: 0; overflow: hidden; background: #d8ebea; color: #243a30; }
 .kavu-explore-world, .kavu-explore-world canvas { display: block; width: 100%; height: 100%; touch-action: none; }
 .kavu-explore-world { position: absolute; inset: 0; }
+.kavu-island-popup { position: absolute; z-index: 3; display: flex; flex-direction: column; gap: 4px; width: 188px; min-height: 70px; padding: 13px 15px; transform: translate(-50%, -100%); transform-origin: center bottom; border: 1px solid rgba(255,255,255,.78); border-radius: 17px; background: rgba(250,255,243,.85); box-shadow: 0 8px 22px rgba(42,83,75,.12), inset 0 1px rgba(255,255,255,.7); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); color: #547262; font: 500 12px/1.35 Urbanist, sans-serif; pointer-events: none; animation: kavu-island-pop .22s cubic-bezier(.2,1.4,.4,1) both; }
+.kavu-island-popup::after { content: ''; position: absolute; bottom: -7px; left: calc(50% - 7px); width: 12px; height: 12px; transform: rotate(45deg); border-right: 1px solid rgba(255,255,255,.78); border-bottom: 1px solid rgba(255,255,255,.78); background: rgba(250,255,243,.85); }
+.kavu-island-popup strong { color: #243a30; font: 700 16px/1.2 Urbanist, sans-serif; }
+.kavu-island-visitors { color: #4d8268; font: 600 10px/1.2 Urbanist, sans-serif; letter-spacing: .03em; text-transform: uppercase; }
+@keyframes kavu-island-pop { from { opacity: 0; transform: translate(-50%, -92%) scale(.88); } to { opacity: 1; transform: translate(-50%, -100%) scale(1); } }
+@media (prefers-reduced-motion: reduce) { .kavu-island-popup { animation: none; } }
 .kavu-explore-header { position: absolute; z-index: 1; top: 60px; left: 24px; right: 24px; pointer-events: none; }
 .kavu-explore-header h1 { margin: 0; font: 300 31px/1.1 Tobias, Georgia, serif; }
 .kavu-explore-header p { margin: 6px 0 0; font: 400 13px/1.3 Urbanist, sans-serif; }
@@ -199,8 +224,10 @@
 .kavu-footer.is-explore { z-index: 7; }
 @media (max-height: 790px) { .kavu-explore-header { top: 38px; } .kavu-explore-controls { bottom: 118px; } .kavu-explore-hint { bottom: 170px; } }
 .kavu-nav-item:not(.is-active) { color: #61997a; background: transparent; box-shadow: none; }
-.kavu-nav-item.is-active { color: #243a30; background: #b3ff49; border-radius: 100px; box-shadow: inset 0 0 4px rgba(0,0,0,.25); }
-.device-screen .kavu-nav-item.is-active:focus, .device-screen .kavu-nav-item.is-active:focus-visible { box-shadow: inset 0 0 4px rgba(0,0,0,.25) !important; }
+.kavu-nav-item.is-active { color: #243a30; background: transparent !important; border-radius: 100px; box-shadow: none; }
+.device-screen .kavu-nav-item.is-active:focus, .device-screen .kavu-nav-item.is-active:focus-visible { box-shadow: none !important; }
+.kavu-nav-highlight { background: #b3ff49; }
+@media (prefers-reduced-motion: reduce) { .kavu-nav-highlight, .kavu-nav-item { transition: none; } }
 .kavu-nav-item > span:last-child { color: inherit; }
 .kavu-nav-icon { display: block; flex: 0 0 24px; width: 24px; height: 24px; background: currentColor; -webkit-mask-image: var(--kavu-nav-icon); mask-image: var(--kavu-nav-icon); -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
 .kavu-nav-icon--journal { --kavu-nav-icon: url('/assets/home/journal.svg'); }
@@ -276,6 +303,19 @@
 .kavu-observation-action button, .kavu-reveal-done { display: flex; align-items: center; justify-content: space-between; width: 100%; height: 55px; padding: 0 18px; border: 1px solid rgba(246,251,244,.79); border-radius: 24px; background: linear-gradient(165deg, #60a50c, #16824d); color: #f2ffd8; box-shadow: 0 5px 18px rgba(67,130,46,.13), inset 0 1px 5px rgba(255,255,255,.19); font: 600 16px/1 Urbanist, sans-serif; }
 .kavu-observation-action button:disabled { background: rgba(113,143,111,.62); color: #f5f7ed; box-shadow: none; }
 .kavu-observation-action button span, .kavu-reveal-done span { font-size: 24px; font-weight: 300; }
+.kavu-observation.is-connecting .kavu-observation-scroll { bottom: 151px; }
+.kavu-connect { position: relative; text-align: center; }
+.kavu-connect-ready { opacity: 1; transition: opacity .35s ease; }
+.kavu-connect.is-listening .kavu-connect-ready { position: absolute; inset: 0; opacity: 0; pointer-events: none; }
+.kavu-connect-listening { padding-top: 72px; animation: kavu-connect-fade .45s ease .18s both; }
+.kavu-connect h1 { max-width: 320px; margin: 0 auto; }
+.kavu-connect .kavu-observation-subtitle { margin: 14px auto 10px; }
+.kavu-connect-art { display: block; width: auto; max-width: 100%; height: min(44vh, 380px); margin: 10px auto 0; object-fit: contain; transition: opacity .35s ease; }
+@keyframes kavu-connect-fade { from { opacity: 0; } to { opacity: 1; } }
+.kavu-connect-status { margin: 0; color: #52715c; font: 500 14px/1.35 Urbanist, sans-serif; }
+.kavu-connect-error { margin: 8px 0 0; color: #835f43; font: 500 13px/1.35 Urbanist, sans-serif; }
+.kavu-connect-action .kavu-connect-demo { justify-content: center; height: 40px; margin-top: 5px; border: 0; background: transparent; box-shadow: none; color: #315e48; font: 600 13px/1 Urbanist, sans-serif; }
+@media (prefers-reduced-motion: reduce) { .kavu-connect-art, .kavu-connect-ready { transition: none; } .kavu-connect-listening { animation: none; } }
 .kavu-footer.is-observation { z-index: 10; }
 .kavu-footer.is-observation .kavu-safe-tint { background: linear-gradient(180deg, rgba(214,239,186,.04), rgba(173,220,155,.3)); }
 .kavu-observation.is-analyzing { z-index: 11; background: #243a30; color: #fbfaf5; }

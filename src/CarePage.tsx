@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { MobileScroll } from './mobile/MobileScroll';
+import { TextAnimate } from './TextAnimate';
 import './care.css';
 
 type CareItem = { plant: 'Jade plant' | 'Moss'; title: string; reason: string; action: string; check: string; image: string; photoNote?: string; credit?: string };
@@ -24,14 +25,14 @@ export function CarePage() {
         <button type="button" className="kavu-care-back" onClick={() => setSelected(null)} aria-label="Back to care signs">← <span>All signs</span></button>
         <div className="kavu-care-detail-photo"><img src={selected.image} alt={selected.photoNote || selected.title} /></div>
         <p className="kavu-care-eyebrow">{selected.plant} · Field guide</p>
-        <h1>{selected.title}</h1>
+        <TextAnimate as="h1">{selected.title}</TextAnimate>
         <p className="kavu-care-photo-note">Reference photo. Compare the sign with your own Kāvu; a photo alone cannot tell us the cause. <a href={selected.image === '/assets/care/jade.jpg' ? 'https://commons.wikimedia.org/wiki/File:Jade_Plant,_Crassula_ovata_IMG_2844.jpg' : selected.image === '/assets/care/moss-brown.jpg' ? 'https://commons.wikimedia.org/wiki/File:(Sphagnum_close-up_in_Kohala,_United_States)_-_DPLA_-_4e551104b0b96ae5d2d3f851fb791478.jpg' : selected.image === '/assets/care/moss-mold.jpg' ? 'https://commons.wikimedia.org/wiki/File:Mold_fungi_on_glass.jpg' : 'https://commons.wikimedia.org/wiki/File:Green_algaes.jpg'} target="_blank" rel="noopener noreferrer">Photo credit ↗</a></p>
         <div className="kavu-care-detail-block"><h2>What it could mean</h2><p>{selected.reason}</p></div>
         <div className="kavu-care-detail-block"><h2>What to check</h2><p>{selected.check}</p></div>
         <div className="kavu-care-detail-block"><h2>A gentle next step</h2><p>{selected.action}</p></div>
       </div> : <div className="kavu-care-list">
         <p className="kavu-care-eyebrow">A LITTLE FIELD GUIDE</p>
-        <h1>What is your Kāvu showing you?</h1>
+        <TextAnimate as="h1">What is your Kāvu showing you?</TextAnimate>
         <p className="kavu-care-intro">Look closely at a sign, then check what might be happening.</p>
         <div className="kavu-care-filters" role="group" aria-label="Choose a plant">
           {(['Jade plant', 'Moss'] as const).map(name => <button key={name} type="button" className={filter === name ? 'is-active' : ''} aria-pressed={filter === name} onClick={() => setFilter(name)}>{name}</button>)}

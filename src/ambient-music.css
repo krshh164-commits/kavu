@@ -1,3 +1,0 @@
-.kavu-music-toggle{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;place-items:center;width:40px;height:40px;padding:0;border:1px solid rgba(244,244,244,.78);border-radius:50%;background:var(--md-sys-color-surface-container);color:#35774f;backdrop-filter:blur(9px);cursor:pointer}
-.kavu-music-toggle svg{width:21px;height:21px}
-.kavu-music-toggle:focus-visible{outline:2px solid #243a30;outline-offset:3px}

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Mandrake Spirit
+* source:	https://sketchfab.com/3d-models/mandrake-spirit-68b3eff76fad4fa192df004baa290216
+* author:	tranb95 (https://sketchfab.com/tranb95)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Mandrake Spirit" (https://sketchfab.com/3d-models/mandrake-spirit-68b3eff76fad4fa192df004baa290216) by tranb95 (https://sketchfab.com/tranb95) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

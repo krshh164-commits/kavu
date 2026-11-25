@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import '@fontsource/caveat/500.css';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { MobileScroll } from './mobile/MobileScroll';
@@ -6,8 +7,12 @@ import { BottomSheet } from './mobile/BottomSheet';
 import { KeyboardTextarea, useKeyboard, useKeyboardInsets } from './mobile/Keyboard';
 import { createPaintedWorld, type WorldController } from './painted-world';
 import { VanaspatiReveal } from './VanaspatiReveal';
+import { useRive } from '@rive-app/react-canvas';
 import { CarePage } from './CarePage';
 import { AmbientMusic } from './AmbientMusic';
+import { TextAnimate } from './TextAnimate';
+import { Floating3DParticles } from './Floating3DParticles';
+import { MandrakeARPreview } from './MandrakeARPreview';
 
 const collection = [
   { name: 'Rock', image: '/assets/profile/mossy-rock.png', unlocked: true },
@@ -457,12 +462,25 @@ function ExploreWorld() {
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
   const [explored, setExplored] = useState(false);
+  const [islandPopup, setIslandPopup] = useState<{ index: number; x: number; y: number } | null>(null);
+  const islandPeople = [
+    { name: 'Aman’s Kāvu', age: 32 }, { name: 'Ivin’s Kāvu', age: 18 },
+    { name: 'My Kāvu', age: 45 }, { name: 'Hemraj’s Kāvu', age: 67 },
+    { name: 'Mira’s Kāvu', age: 12 }, { name: 'Nila’s Kāvu', age: 38 },
+    { name: 'Arun’s Kāvu', age: 54 },
+  ];
   useEffect(() => {
     if (!host.current) return;
     const controller = createPaintedWorld(host.current, {
       onReady: () => setReady(true),
       onError: () => setFailed(true),
       onExplore: () => setExplored(true),
+      onIslandTap: (index, clientX, clientY) => {
+        const rect = host.current?.getBoundingClientRect();
+        if (!rect) return;
+        setIslandPopup({ index, x: Math.max(108, Math.min(rect.width - 108, clientX - rect.left)), y: Math.max(210, Math.min(rect.height - 240, clientY - rect.top - 20)) });
+      },
+      onDismiss: () => setIslandPopup(null),
       paused: false,
     });
     world.current = controller;
@@ -471,7 +489,12 @@ function ExploreWorld() {
   return (
     <section className="kavu-explore" aria-label="Explore islands">
       <div ref={host} className="kavu-explore-world" />
-      <header className="kavu-explore-header"><h1>Explore</h1><p>Visit the world around Kāvu</p></header>
+      {islandPopup && <div className="kavu-island-popup" style={{ left: islandPopup.x, top: islandPopup.y }} role="status" aria-label={islandPeople[islandPopup.index].name}>
+        {islandPopup.index === 2 && <span className="kavu-island-visitors">24 visitors</span>}
+        <strong><TextAnimate delay={70}>{islandPeople[islandPopup.index].name}</TextAnimate></strong>
+        <span><TextAnimate delay={180}>{`${islandPeople[islandPopup.index].age} days old`}</TextAnimate></span>
+      </div>}
+      <header className="kavu-explore-header"><TextAnimate as="h1">Explore</TextAnimate><TextAnimate as="p" delay={150}>Visit the world around Kāvu</TextAnimate></header>
       {!ready && <p className="kavu-explore-status" role="status">{failed ? 'The islands could not load.' : 'Finding the islands…'}</p>}
       {ready && !explored && <p className="kavu-explore-hint">Drag to explore · Pinch to zoom</p>}
       <div className="kavu-explore-controls">
@@ -484,6 +507,20 @@ function ExploreWorld() {
 }
 
 type ObservationPhoto = { id: number; url: string };
+
+function VanaspatiHandoff({ onHome }: { onHome: () => void }) {
+  const [arMessage, setArMessage] = useState('');
+  const { RiveComponent } = useRive({ src: '/assets/sobo.riv', artboard: 'SOBO-Motion-V01', stateMachine: 'State Machine', autoplay: true });
+  return <section className="kavu-vanaspati-invite" aria-label="A message from Kāvu">
+    <div className="kavu-vanaspati-invite-character" aria-hidden="true"><RiveComponent /></div>
+    <h1>Kāvu wants to tell you something.</h1>
+    {arMessage && <p className="kavu-vanaspati-camera-message" role="status">{arMessage}</p>}
+    <div className="kavu-vanaspati-invite-actions">
+      <button type="button" onClick={onHome}>Back to Home</button>
+      <button type="button" onClick={() => setArMessage('Vanaspati’s AR view is not available yet. This project is missing a Vanaspati 3D model (.glb, .gltf or .usdz) and an AR scene or tracking target.')}>See</button>
+    </div>
+  </section>;
+}
 
 function ObservationFlow({ step, onStepChange, onClose }: { step: number; onStepChange: (step: number) => void; onClose: () => void }) {
   const keyboard = useKeyboard();
@@ -499,6 +536,9 @@ function ObservationFlow({ step, onStepChange, onClose }: { step: number; onStep
   const [cameraOpen, setCameraOpen] = useState(false);
   const [cameraMessage, setCameraMessage] = useState('');
   const [revealed, setRevealed] = useState(false);
+  const [vanaspatiHandoff, setVanaspatiHandoff] = useState(false);
+  const [connectionPhase, setConnectionPhase] = useState<'ready' | 'listening' | 'error'>('ready');
+  const [connectionMessage, setConnectionMessage] = useState('');
   const recognition = useRef<any>(null);
   const stream = useRef<MediaStream | null>(null);
   const video = useRef<HTMLVideoElement>(null);
@@ -522,7 +562,9 @@ function ObservationFlow({ step, onStepChange, onClose }: { step: number; onStep
   const stopCamera = () => { stream.current?.getTracks().forEach(track => track.stop()); stream.current = null; setCameraOpen(false); };
   useEffect(() => () => { recognition.current?.stop(); stream.current?.getTracks().forEach(track => track.stop()); photoUrls.current.forEach(url => URL.revokeObjectURL(url)); keyboard.hide(); }, []);
   useEffect(() => { if (step !== 2) { stream.current?.getTracks().forEach(track => track.stop()); stream.current = null; setCameraOpen(false); setPreviewOpen(false); } }, [step]);
-  useEffect(() => { if (step !== 4) return; setRevealed(false); const timer = window.setTimeout(() => setRevealed(true), 2600); return () => window.clearTimeout(timer); }, [step]);
+  useEffect(() => { if (step !== 5) return; setRevealed(false); const timer = window.setTimeout(() => setRevealed(true), 2600); return () => window.clearTimeout(timer); }, [step]);
+  useEffect(() => { if (step !== 4) { setConnectionPhase('ready'); setConnectionMessage(''); } }, [step]);
+  useEffect(() => { if (step !== 4 || connectionPhase !== 'listening') return; const timer = window.setTimeout(() => onStepChange(5), 2800); return () => window.clearTimeout(timer); }, [step, connectionPhase, onStepChange]);
 
   const startSpeech = () => {
     if (speaking) { recognition.current?.stop(); return; }
@@ -603,22 +645,29 @@ function ObservationFlow({ step, onStepChange, onClose }: { step: number; onStep
     setMarker({ x: Math.max(4, Math.min(96, (event.clientX - rect.left) / rect.width * 100)), y: Math.max(4, Math.min(96, (event.clientY - rect.top) / rect.height * 100)) });
   };
   const leaveText = () => { if (document.activeElement instanceof HTMLElement) document.activeElement.blur(); keyboard.hide(); restoreScreenPosition(); };
+  const connectKavu = async () => {
+    setConnectionMessage('');
+    const usb = (navigator as any).usb;
+    if (!usb?.requestDevice) { setConnectionPhase('error'); setConnectionMessage('This browser cannot read Kāvu’s cable. You can continue with demo readings.'); return; }
+    try { await usb.requestDevice({ filters: [] }); setConnectionPhase('listening'); }
+    catch { setConnectionPhase('error'); setConnectionMessage('Kāvu did not connect. Check the cable and try again.'); }
+  };
   const goBack = () => { leaveText(); if (step === 1) onClose(); else onStepChange(step - 1); };
-  const continueFlow = () => { leaveText(); if (step < 4) onStepChange(step + 1); };
+  const continueFlow = () => { leaveText(); if (step < 5) onStepChange(step + 1); };
 
-  return <section ref={flowRoot} className={`kavu-observation${step === 4 ? ' is-analyzing' : ''}`} aria-label="Weekly observation">
-    {step < 4 ? <>
+  return <section ref={flowRoot} className={`kavu-observation${step === 5 ? ' is-analyzing' : ''}${step === 4 ? ' is-connecting' : ''}`} aria-label="Weekly observation">
+    {vanaspatiHandoff ? <VanaspatiHandoff onHome={onClose} /> : step < 5 ? <>
       <header className="kavu-observation-header">
         <button type="button" aria-label="Back" onClick={goBack}>‹</button>
         <span>Weekly observation</span>
         <button type="button" aria-label="Close observation" onClick={() => { leaveText(); onClose(); }}>×</button>
       </header>
-      <div className="kavu-observation-progress" role="progressbar" aria-valuemin={1} aria-valuemax={4} aria-valuenow={step} aria-label={`Step ${step} of 4`}><span style={{ width: `${step * 25}%` }} /></div>
+      <div className="kavu-observation-progress" role="progressbar" aria-valuemin={1} aria-valuemax={5} aria-valuenow={step} aria-label={`Step ${step} of 5`}><span style={{ width: `${step * 20}%` }} /></div>
       <MobileScroll className="kavu-observation-scroll">
         <div className="kavu-observation-content">
-          <p className="kavu-observation-eyebrow">{step} / 4 · {['', 'OBSERVE', 'CAPTURE', 'MARK'][step]}</p>
+          <p className="kavu-observation-eyebrow">{step} / 5 · {['', 'OBSERVE', 'CAPTURE', 'MARK', 'CONNECT'][step]}</p>
           {step === 1 && <>
-            <h1>What did you notice?</h1>
+            <TextAnimate as="h1">What did you notice?</TextAnimate>
             <p className="kavu-observation-subtitle">Look at your Kāvu. Tell me anything that feels different.</p>
             <div className="kavu-observation-note-row"><label className="kavu-observation-note-label" htmlFor="kavu-observation-note">Your observation</label>{keyboardInsets.isKeyboardVisible && <button type="button" onClick={leaveText}>Done</button>}</div>
             <KeyboardTextarea id="kavu-observation-note" className="kavu-observation-note" value={note} onChange={event => setNote(event.target.value)} onBlur={() => keyboard.hide()} placeholder="I noticed a tiny new leaf…" rows={5} />
@@ -627,7 +676,7 @@ function ObservationFlow({ step, onStepChange, onClose }: { step: number; onStep
             {speechMessage && <p className="kavu-observation-message" role="status">{speechMessage}</p>}
           </>}
           {step === 3 && <>
-            <h1>Show me where</h1>
+            <TextAnimate as="h1">Show me where</TextAnimate>
             <p className="kavu-observation-subtitle">Tap the part you noticed. You can move the yellow marker.</p>
             <div className="kavu-mark-photo" role="img" aria-label="Captured Kāvu photo. Tap or drag to mark a change." onPointerDown={event => { event.currentTarget.setPointerCapture(event.pointerId); setMarkerFromPointer(event); }} onPointerMove={event => { if (event.currentTarget.hasPointerCapture(event.pointerId)) setMarkerFromPointer(event); }} onPointerUp={event => { if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId); }}>
               <img src={activePhoto?.url ?? '/assets/journal/terrarium.png'} alt="" draggable="false" />
@@ -639,7 +688,7 @@ function ObservationFlow({ step, onStepChange, onClose }: { step: number; onStep
             <button className="kavu-skip-mark" type="button" onClick={continueFlow}>Skip marking</button>
           </>}
           {step === 2 && <>
-            <h1>Take a few photos</h1>
+            <TextAnimate as="h1">Take a few photos</TextAnimate>
             <p className="kavu-observation-subtitle">Start with a straight-on view. One clear photo is enough.</p>
             <div className="kavu-camera-frame">
               <span className="kavu-camera-count">{photos.length} / 4 photos</span>
@@ -652,14 +701,27 @@ function ObservationFlow({ step, onStepChange, onClose }: { step: number; onStep
             <input ref={fileInput} type="file" accept="image/*" multiple hidden onChange={choosePhotos} aria-label="Choose Kāvu photos" />
             {photos.length > 0 && <div className="kavu-photo-strip" aria-label="Captured photos">{photos.map((photo, index) => <button type="button" key={photo.id} className={activePhoto?.id === photo.id ? 'is-selected' : ''} aria-label={`Preview photo ${index + 1}`} onClick={() => { setSelectedPhoto(photo.id); setPreviewOpen(true); }}><img src={photo.url} alt="" draggable="false" /></button>)}</div>}
           </>}
+          {step === 4 && <div className={`kavu-connect${connectionPhase === 'listening' ? ' is-listening' : ''}`}>
+            <div className="kavu-connect-ready" aria-hidden={connectionPhase === 'listening'}>
+              <TextAnimate as="h1">Connect to your Kāvu</TextAnimate>
+              <p className="kavu-observation-subtitle">Plug in Kāvu’s cable to hear what this week has been like.</p>
+              <img className="kavu-connect-art" src="/assets/connecting-kavu.svg" alt="Cable connecting to Kāvu" />
+              {connectionMessage && <p className="kavu-connect-error" role="status">{connectionMessage}</p>}
+            </div>
+            {connectionPhase === 'listening' && <div className="kavu-connect-listening">
+              <TextAnimate as="h1">Listening to Kāvu’s story from the past week…</TextAnimate>
+              <Floating3DParticles />
+              <p className="kavu-connect-status" role="status">Gathering this week’s clues</p>
+            </div>}
+          </div>}
         </div>
       </MobileScroll>
-      {!keyboardInsets.isKeyboardVisible && <div className="kavu-observation-action"><button type="button" disabled={step === 1 ? !note.trim() : step === 2 ? photos.length === 0 : !marker} onClick={continueFlow}>Continue <span aria-hidden="true">→</span></button></div>}
+      {!keyboardInsets.isKeyboardVisible && (step === 4 ? connectionPhase !== 'listening' && <div className="kavu-observation-action kavu-connect-action"><button type="button" onClick={connectKavu}>{connectionPhase === 'error' ? 'Try connecting again' : 'Connect Kāvu'} <span aria-hidden="true">→</span></button><button type="button" className="kavu-connect-demo" onClick={() => setConnectionPhase('listening')}>Continue with demo readings</button></div> : <div className="kavu-observation-action"><button type="button" disabled={step === 1 ? !note.trim() : step === 2 ? photos.length === 0 : !marker} onClick={continueFlow}>Continue <span aria-hidden="true">→</span></button></div>)}
       {previewOpen && activePhoto && <div className="kavu-photo-preview" role="dialog" aria-modal="true" aria-label="Photo preview"><button type="button" className="kavu-photo-preview-close" aria-label="Close photo preview" onClick={() => setPreviewOpen(false)}>×</button><img src={activePhoto.url} alt="Captured Kāvu" /><div><button type="button" onClick={() => { retakeTarget.current = activePhoto.id; setPreviewOpen(false); if (!cameraOpen) void openCamera(); }}>Retake</button><button type="button" onClick={() => { retakeTarget.current = activePhoto.id; setPreviewOpen(false); fileInput.current?.click(); }}>Choose replacement</button><button type="button" onClick={deletePhoto}>Delete</button></div></div>}
     </> : <>
-      {!revealed && <button type="button" className="kavu-analysis-back" aria-label="Back to marking" onClick={goBack}>‹</button>}
+      {!revealed && <button type="button" className="kavu-analysis-back" aria-label="Back to connecting" onClick={goBack}>‹</button>}
       {!revealed && <button type="button" className="kavu-analysis-close" aria-label="Close observation" onClick={onClose}>×</button>}
-      {!revealed ? <div className="kavu-analysis-center" role="status"><p className="kavu-analysis-eyebrow">4 / 4 · ANALYZE</p><div className="kavu-analysis-orb" aria-hidden="true"><span>✦</span></div><h1>Looking closely<br />at your Kāvu…</h1><p>Bringing your photos and what you noticed together.</p></div> : <VanaspatiReveal note={note} marker={marker} photos={photos} onBack={goBack} onClose={onClose} />}
+      {!revealed ? <div className="kavu-analysis-center" role="status"><p className="kavu-analysis-eyebrow">5 / 5 · ANALYZE</p><div className="kavu-analysis-orb" aria-hidden="true"><span>✦</span></div><h1>Looking closely<br />at your Kāvu…</h1><p>Bringing your photos and what you noticed together.</p></div> : <VanaspatiReveal note={note} marker={marker} photos={photos} onBack={goBack} onClose={() => setVanaspatiHandoff(true)} />}
     </>}
   </section>;
 }
@@ -667,19 +729,20 @@ function ObservationFlow({ step, onStepChange, onClose }: { step: number; onStep
 export default function Prototype() {
   const [kitOpen, setKitOpen] = useState(true);
   const [profileOpen, setProfileOpen] = useState(false);
-  const [rockAdded, setRockAdded] = useState(() => { try { return localStorage.getItem('kavu-home-rock') === 'added'; } catch { return false; } });
+  const [rockAdded, setRockAdded] = useState(false);
   const [rockPromptOpen, setRockPromptOpen] = useState(false);
   const [journalOpen, setJournalOpen] = useState(false);
   const [exploreOpen, setExploreOpen] = useState(false);
   const [careOpen, setCareOpen] = useState(false);
   const [observationOpen, setObservationOpen] = useState(false);
   const [observationStep, setObservationStep] = useState(1);
+  const activeNavTab = journalOpen ? 'journal' : exploreOpen ? 'explore' : careOpen ? 'care' : 'home';
   const addRockToScene = () => {
-    try { localStorage.setItem('kavu-home-rock', 'added'); } catch { /* Keep this session's choice if storage is unavailable. */ }
     setRockAdded(true);
     setRockPromptOpen(false);
     setProfileOpen(false);
   };
+  if (new URLSearchParams(window.location.search).has('mandrake-ar-preview')) return <MandrakeARPreview />;
   return (
     <main className="kavu-home">
       <header className="kavu-header">
@@ -688,29 +751,29 @@ export default function Prototype() {
         <button className="kavu-header-control" type="button" aria-label="Profile" onClick={() => setProfileOpen(true)}><img className="kavu-avatar" src="/assets/home/profile-final.png" alt="" /></button>
       </header>
       <section className="kavu-main">
-        <div className="kavu-greeting"><h1>Welcome back, Iva</h1><p>Day 45 with kavu</p></div>
+        <div className="kavu-greeting"><TextAnimate as="h1">Welcome back, Iva</TextAnimate><TextAnimate as="p" delay={220}>Day 45 with kavu</TextAnimate></div>
         <div className="kavu-visual"><IslandScene rockVisible={rockAdded} /></div>
-        <p className="kavu-assessment">Last week, Kavu was<br />calm and steady</p>
+        <p className="kavu-assessment"><TextAnimate delay={420}>Last week, Kavu was</TextAnimate><br /><TextAnimate delay={650}>calm and steady</TextAnimate></p>
         <div className="kavu-flex-space" />
         <button type="button" className="kavu-start" onClick={() => { setJournalOpen(false); setExploreOpen(false); setObservationStep(1); setObservationOpen(true); }}><span className="kavu-start-label">Start observation</span><span className="kavu-arrow-pocket" aria-hidden="true"><img className="kavu-arrow" src="/assets/home/arrow-final.svg" alt="" /></span></button>
       </section>
       {journalOpen && (
         <section className="kavu-journal" aria-label="Journal sample entry">
           <header className="kavu-journal-header">
-            <h1>Journal</h1>
+            <TextAnimate as="h1">Journal</TextAnimate>
             <span>Week 7</span>
           </header>
           <MobileScroll className="kavu-journal-scroll">
             <article className="kavu-diary-page">
               <div className="kavu-diary-content">
                 <p className="kavu-diary-example">Sample entry</p>
-                <h2>Week 7 with Kāvu</h2>
+                <TextAnimate as="h2" delay={160}>Week 7 with Kāvu</TextAnimate>
                 <p className="kavu-diary-date">9–15 November · Day 43–49</p>
                 <figure className="kavu-diary-photo">
                   <img src="/assets/journal/terrarium.png" alt="Sample photo of a lush terrarium in a glass jar" draggable="false" />
                   <figcaption>Sample terrarium photo</figcaption>
                 </figure>
-                <blockquote>“A tiny green leaf appeared beside the moss.”</blockquote>
+                <blockquote><span>“A tiny green leaf appeared beside the moss.”</span></blockquote>
                 <section><h3>Three little changes</h3><p>A new leaf appeared. The moss spread a little farther across the soil. The glass looked clearer than it did last week.</p></section>
                 <section><h3>What felt special</h3><p>“I almost missed the leaf. I saw it when I leaned closer.”</p></section>
                 <section><h3>This week’s reflection</h3><p>Kāvu seemed calm and steady. The new growth was small, but it gave us something to look for next time.</p></section>
@@ -723,7 +786,8 @@ export default function Prototype() {
       {careOpen && <CarePage />}
       {observationOpen && <ObservationFlow step={observationStep} onStepChange={setObservationStep} onClose={() => { setObservationOpen(false); setObservationStep(1); }} />}
       {!profileOpen && !observationOpen && <footer className={`kavu-footer${journalOpen ? ' is-journal' : ''}${exploreOpen ? ' is-explore' : ''}${careOpen ? ' is-care' : ''}`}>
-        <nav className="kavu-nav" aria-label="Main navigation">
+        <nav className="kavu-nav" aria-label="Main navigation" data-active-tab={activeNavTab}>
+          <span className="kavu-nav-highlight" aria-hidden="true" />
           <button type="button" className={`kavu-nav-item${journalOpen ? ' is-active' : ''}`} aria-current={journalOpen ? 'page' : undefined} onClick={() => { setObservationOpen(false); setExploreOpen(false); setCareOpen(false); setJournalOpen(true); }}><span className="kavu-nav-icon kavu-nav-icon--journal" aria-hidden="true" /><span>Journal</span></button>
           <button type="button" className={`kavu-nav-item${!journalOpen && !exploreOpen && !careOpen ? ' is-active' : ''}`} aria-current={!journalOpen && !exploreOpen && !careOpen ? 'page' : undefined} onClick={() => { setObservationOpen(false); setJournalOpen(false); setExploreOpen(false); setCareOpen(false); }}><span className="kavu-nav-icon kavu-nav-icon--home" aria-hidden="true" /><span>My kavu</span></button>
           <button type="button" className={`kavu-nav-item${exploreOpen ? ' is-active' : ''}`} aria-current={exploreOpen ? 'page' : undefined} onClick={() => { setObservationOpen(false); setJournalOpen(false); setCareOpen(false); setExploreOpen(true); }}><span className="kavu-nav-icon kavu-nav-icon--explore" aria-hidden="true" /><span>Explore</span></button>
@@ -741,14 +805,14 @@ export default function Prototype() {
           <MobileScroll className="kavu-profile-scroll">
             <div className="kavu-profile-intro">
               <img src="/assets/home/profile-final.png" alt="" />
-              <h1>Kāvu & Iva</h1>
+              <TextAnimate as="h1">Kāvu & Iva</TextAnimate>
               <p>Growing together and learning together.</p>
             </div>
             <div className="kavu-profile-stats" aria-label="Time together">
               <div><strong>45</strong><span>days together</span></div>
               <div><strong>2</strong><span>weekly checkups</span></div>
             </div>
-            <div className="kavu-collection-heading"><div><h2>Your collection</h2><p>Little things found along the way</p></div><span>2 of 6 found</span></div>
+            <div className="kavu-collection-heading"><div><TextAnimate as="h2">Your collection</TextAnimate><p>Little things found along the way</p></div><span>2 of 6 found</span></div>
             <div className="kavu-collection-grid">
               {collection.map(item => (
                 <article className={`kavu-asset-card${item.unlocked ? '' : ' is-locked'}${item.name === 'Green tree' ? ' is-tree' : ''}${item.name === 'Rock' ? ' is-rock' : ''}`} key={item.name} role={item.name === 'Rock' ? 'button' : undefined} tabIndex={item.name === 'Rock' ? 0 : undefined} aria-haspopup={item.name === 'Rock' ? 'dialog' : undefined} onClick={item.name === 'Rock' ? () => setRockPromptOpen(true) : undefined} onKeyDown={item.name === 'Rock' ? event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setRockPromptOpen(true); } } : undefined}>

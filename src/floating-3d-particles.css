@@ -1,0 +1,6 @@
+.kavu-floating-particles { position: relative; width: min(100%, 290px); height: 260px; margin: 24px auto 0; perspective: 420px; pointer-events: none; }
+.kavu-floating-particles span { position: absolute; top: var(--particle-y); left: var(--particle-x); width: 7px; height: 7px; border-radius: 50%; background: #f3d885; box-shadow: 0 0 14px 5px rgba(142,213,173,.6); opacity: .85; transform: translate3d(0,0,var(--particle-depth)); animation: kavu-particle-float var(--particle-duration) ease-in-out var(--particle-delay) infinite alternate; }
+.kavu-floating-particles span:nth-child(3n) { width: 5px; height: 5px; background: #70c9b5; }
+.kavu-floating-particles span:nth-child(4n) { background: #f6ceb5; }
+@keyframes kavu-particle-float { to { transform: translate3d(9px,-18px,var(--particle-depth)); opacity: .28; } }
+@media (prefers-reduced-motion: reduce) { .kavu-floating-particles span { animation: none; } }
