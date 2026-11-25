@@ -733,7 +733,7 @@ export default function Prototype() {
       <header className="kavu-header">
         <button className="kavu-header-control" type="button" aria-label="Open menu"><img src="/assets/home/menu-final.svg" alt="" /></button>
         <AmbientMusic quiet={observationOpen} />
-        <button className="kavu-header-control" type="button" aria-label="Profile" onClick={() => setProfileOpen(true)}><img className="kavu-avatar" src="/assets/home/profile-final.png" alt="" /></button>
+        <button className="kavu-header-control" type="button" aria-label="Profile" onClick={() => setProfileOpen(true)}><img className="kavu-avatar" src="/assets/home/iva-profile.png" alt="" /></button>
       </header>
       <section className="kavu-main">
         <div className="kavu-greeting"><TextAnimate as="h1">Welcome back, Iva</TextAnimate><TextAnimate as="p" delay={220}>Day 45 with kavu</TextAnimate></div>
@@ -789,7 +789,7 @@ export default function Prototype() {
           </header>
           <MobileScroll className="kavu-profile-scroll">
             <div className="kavu-profile-intro">
-              <img src="/assets/home/profile-final.png" alt="" />
+              <img src="/assets/home/iva-profile.png" alt="Iva’s profile portrait" />
               <TextAnimate as="h1">Kāvu & Iva</TextAnimate>
               <p>Growing together and learning together.</p>
             </div>

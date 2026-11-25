@@ -5,7 +5,7 @@
 .kavu-header { position: relative; top: 20px; left: auto; right: auto; z-index: 2; display: flex; align-items: center; justify-content: space-between; flex: 0 0 64px; height: 64px; margin: 0 16px; }
 .kavu-header-control { display: grid; place-items: center; width: 48px; height: 48px; padding: 0; border: 1px solid rgba(244,244,244,.9); border-radius: 34px; background: var(--md-sys-color-surface-container); backdrop-filter: blur(9px); }
 .kavu-header-control img { display: block; width: 24px; height: 24px; }
-.kavu-header-control .kavu-avatar { width: 32px; height: 32px; object-fit: contain; }
+.kavu-header-control .kavu-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
 .kavu-header-control:focus-visible, .kavu-nav-item:focus-visible, .kavu-start:focus-visible { outline: 2px solid var(--md-sys-color-on-surface); outline-offset: 3px; }
 .kavu-main { z-index: 1; display: flex; flex: 1 1 auto; min-height: 0; flex-direction: column; align-items: center; gap: 0; padding: 0 var(--kavu-space-lg); }
 .kavu-header + .kavu-main { margin-top: -8px; }

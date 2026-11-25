@@ -35,7 +35,7 @@
 .kavu-profile .kavu-profile-scroll { top: 114px; }
 .kavu-profile-scroll .mobile-scroll-content { padding: 8px 24px calc(var(--mobile-safe-area-height) + 28px); }
 .kavu-profile-intro { display: flex; flex-direction: column; align-items: center; text-align: center; }
-.kavu-profile-intro img { width: 68px; height: 68px; object-fit: contain; }
+.kavu-profile-intro img { width: 68px; height: 68px; border-radius: 50%; object-fit: cover; }
 .kavu-profile-intro h1 { margin: 10px 0 0; color: #243a30; font: 300 31px/1.15 Tobias, Georgia, serif; }
 .kavu-profile-intro p { margin: 8px 0 0; color: #667a70; font-size: 13px; line-height: 1.35; }
 .kavu-profile-stats { display: grid; grid-template-columns: 1fr 1fr; gap: var(--kavu-space-md); margin-top: var(--kavu-space-xl); }
