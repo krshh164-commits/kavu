@@ -14,3 +14,17 @@
 .story-readings .attention{background:#f7dda2;color:#67491f}
 .story-readings .calm{background:#e6efbf;color:#36543a}
 .story-readings .good{background:#d9efd1;color:#285a3c}
+.story-live-button{display:flex;align-items:center;justify-content:center;gap:9px;min-height:44px;margin:12px auto 0;padding:0 18px;border:1px solid #7ca98666;border-radius:24px;background:#f8fbe9b8;color:#315e48;font:600 14px Urbanist,sans-serif;cursor:pointer}
+.story-live-button span{font-size:18px;font-weight:400}
+.story-sensor-scrim{position:absolute;z-index:8;inset:0;display:flex;align-items:flex-end;justify-content:center;padding:16px;background:#183b2c66;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+.story-sensor-sheet{position:relative;width:100%;max-height:78%;overflow:auto;padding:28px 22px max(24px,env(safe-area-inset-bottom));border:1px solid #fff9;border-radius:26px;background:linear-gradient(150deg,#fffde9,#e6f6d6 75%,#d7f2cf);box-shadow:0 12px 36px #183b2c38;text-align:left;animation:story-sheet-in .24s ease-out both}
+.story-sensor-close{position:absolute;top:12px;right:14px;width:42px;height:42px;border:0;border-radius:50%;background:#ffffffa8;color:#315e48;font:28px/1 Urbanist,sans-serif;cursor:pointer}
+.story-sensor-kicker{margin:0 48px 10px 0;color:#54785b;font:700 10px/1.2 Urbanist,sans-serif;letter-spacing:.1em}
+.story-sensor-sheet h2{margin:0;color:#243a30;font:300 27px/1.15 Tobias,Georgia,serif}
+.story-sensor-note{margin:9px 0 18px;color:#516854;font:400 13px/1.4 Urbanist,sans-serif}
+.story-sensor-values{display:grid;gap:8px}
+.story-sensor-values>div{display:flex;align-items:center;justify-content:space-between;min-height:58px;padding:0 15px;border:1px solid #c9d8b9a8;border-radius:16px;background:#fffdf0d9;color:#365340;font:500 14px Urbanist,sans-serif}
+.story-sensor-values strong{color:#244d38;font:600 20px Urbanist,sans-serif;font-variant-numeric:tabular-nums}
+.story-sensor-values small{font-size:12px;font-weight:500}
+@keyframes story-sheet-in{from{transform:translateY(14px);opacity:.7}to{transform:translateY(0);opacity:1}}
+@media(prefers-reduced-motion:reduce){.story-sensor-sheet{animation:none}}
