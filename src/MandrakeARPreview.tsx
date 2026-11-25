@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import './mandrake-ar-preview.css';
@@ -11,7 +11,10 @@ type HitTestState = { source: any; referenceSpace: any; viewerSpace: any };
 
 const modelUrl = '/assets/mandrake-spirit/scene.gltf';
 
-export function MandrakeARPreview() {
+export type MandrakeARHandle = { openCamera: () => void };
+type MandrakeARProps = { embedded?: boolean; onOpen?: () => void; onClose?: () => void };
+
+export const MandrakeARPreview = forwardRef<MandrakeARHandle, MandrakeARProps>(function MandrakeARPreview({ embedded = false, onOpen, onClose }, ref) {
   const host = useRef<HTMLDivElement>(null);
   const overlay = useRef<HTMLDivElement>(null);
   const xrSession = useRef<any>(null);
@@ -24,12 +27,13 @@ export function MandrakeARPreview() {
   const [arActive, setArActive] = useState(false);
   const [placed, setPlaced] = useState(false);
   const [error, setError] = useState('');
+  const [embeddedOpen, setEmbeddedOpen] = useState(!embedded);
+  const isVisible = !embedded || embeddedOpen;
 
   useEffect(() => {
     const root = host.current;
     if (!root) return;
     let disposed = false;
-    let modelReady = false;
     let reticleVisible = false;
     let lastXRStatus = '';
     let previewModel: any = null;
@@ -55,7 +59,10 @@ export function MandrakeARPreview() {
     anchorGroup.visible = false;
     anchorGroup.matrixAutoUpdate = false;
     scene.add(anchorGroup);
-    runtime.current = { renderer: null, previewGroup, anchorGroup, getPlacedModel: () => placedModel };
+    const placementOffset = new THREE.Group();
+    placementOffset.position.z = -.16;
+    anchorGroup.add(placementOffset);
+    runtime.current = { renderer: null, previewGroup, anchorGroup, placementOffset, getPlacedModel: () => placedModel };
     const shadowCanvas = document.createElement('canvas');
     shadowCanvas.width = shadowCanvas.height = 128;
     const shadowContext = shadowCanvas.getContext('2d');
@@ -76,15 +83,25 @@ export function MandrakeARPreview() {
       return mesh;
     };
     previewGroup.add(makeShadow());
-    anchorGroup.add(makeShadow());
+    placementOffset.add(makeShadow());
 
-    const reticle = new THREE.Mesh(
-      new THREE.RingGeometry(0.075, 0.09, 48),
-      new THREE.MeshBasicMaterial({ color: 0xd9efae, side: THREE.DoubleSide }),
-    );
-    reticle.rotation.x = -Math.PI / 2;
+    const reticle = new THREE.Group();
     reticle.matrixAutoUpdate = false;
     reticle.visible = false;
+    reticle.renderOrder = 10;
+    const reticleMaterial = new THREE.MeshBasicMaterial({ color: 0xc84940, depthTest: false });
+    const reticleSide = .16;
+    const reticleThickness = .004;
+    [
+      { width: reticleSide, depth: reticleThickness, x: 0, z: -reticleSide / 2 },
+      { width: reticleSide, depth: reticleThickness, x: 0, z: reticleSide / 2 },
+      { width: reticleThickness, depth: reticleSide, x: -reticleSide / 2, z: 0 },
+      { width: reticleThickness, depth: reticleSide, x: reticleSide / 2, z: 0 },
+    ].forEach(({ width, depth, x, z }) => {
+      const edge = new THREE.Mesh(new THREE.BoxGeometry(width, .003, depth), reticleMaterial);
+      edge.position.set(x, 0, z);
+      reticle.add(edge);
+    });
     scene.add(reticle);
 
     try {
@@ -140,7 +157,6 @@ export function MandrakeARPreview() {
       previewGroup.add(source);
       previewModel = previewGroup;
       placedModel = source;
-      modelReady = true;
       setLoaded(true);
       setStatus('Ready to find a gentle spot.');
     }, undefined, () => setError('The Mandrake Spirit model could not be loaded.'));
@@ -154,23 +170,60 @@ export function MandrakeARPreview() {
       }
     }).catch(() => setStatus('Preview ready · AR support could not be checked.'));
 
-    const endSession = () => { void xrSession.current?.end(); };
     place.current = () => {
       if (!reticleVisible || !placedModel) return;
       anchorGroup.matrix.copy(reticle.matrix);
       previewGroup.remove(placedModel);
-      anchorGroup.add(placedModel);
+      placementOffset.add(placedModel);
       anchorGroup.visible = true;
       previewGroup.visible = false;
       setPlaced(true);
-      setStatus('Mandrake Spirit is placed.');
+      setStatus('Spirit placed. Drag gently to adjust its spot.');
+    };
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
+    let dragging = false;
+    let pointerId: number | null = null;
+    let lastPointer = { x: 0, y: 0 };
+    let touchPulseUntil = 0;
+    const hitPlacedModel = (event: PointerEvent) => {
+      if (!placedModel) return false;
+      const rect = rafRenderer.domElement.getBoundingClientRect();
+      pointer.set((event.clientX - rect.left) / rect.width * 2 - 1, -((event.clientY - rect.top) / rect.height * 2 - 1));
+      raycaster.setFromCamera(pointer, rafRenderer.xr.isPresenting ? rafRenderer.xr.getCamera(camera) : camera);
+      return raycaster.intersectObject(placedModel, true).length > 0;
     };
     const onPointer = (event: PointerEvent) => {
-      if (!xrSession.current || !reticleVisible) return;
+      if (!xrSession.current) return;
       event.preventDefault();
-      place.current?.();
+      if (anchorGroup.visible && hitPlacedModel(event)) {
+        dragging = true;
+        pointerId = event.pointerId;
+        lastPointer = { x: event.clientX, y: event.clientY };
+        touchPulseUntil = performance.now() + 220;
+        rafRenderer.domElement.setPointerCapture(event.pointerId);
+        setStatus('Drag gently to adjust the spirit.');
+        return;
+      }
+      if (!anchorGroup.visible) place.current?.();
+    };
+    const onPointerMove = (event: PointerEvent) => {
+      if (!dragging || event.pointerId !== pointerId) return;
+      event.preventDefault();
+      const scale = Math.min(.0008, .35 / Math.max(window.innerWidth, 1));
+      placementOffset.position.x = THREE.MathUtils.clamp(placementOffset.position.x + (event.clientX - lastPointer.x) * scale, -.12, .12);
+      placementOffset.position.z = THREE.MathUtils.clamp(placementOffset.position.z + (event.clientY - lastPointer.y) * scale, -.12, .12);
+      lastPointer = { x: event.clientX, y: event.clientY };
+    };
+    const onPointerEnd = (event: PointerEvent) => {
+      if (event.pointerId !== pointerId) return;
+      dragging = false;
+      pointerId = null;
     };
     rafRenderer.domElement.addEventListener('pointerdown', onPointer);
+    rafRenderer.domElement.addEventListener('pointermove', onPointerMove);
+    rafRenderer.domElement.addEventListener('pointerup', onPointerEnd);
+    rafRenderer.domElement.addEventListener('pointercancel', onPointerEnd);
 
     rafRenderer.setAnimationLoop((_time: number, frame: any) => {
       if (frame && hitTest.current.source && hitTest.current.referenceSpace && hitTest.current.viewerSpace && !anchorGroup.visible) {
@@ -182,7 +235,7 @@ export function MandrakeARPreview() {
             reticle.matrix.fromArray(pose.transform.matrix);
             reticle.visible = true;
             reticleVisible = true;
-            updateXRStatus('Move your phone until the ring settles, then tap to place.');
+            updateXRStatus('Move slowly to find a spot, then tap the red square.');
           }
         } else {
           reticle.visible = false;
@@ -190,6 +243,9 @@ export function MandrakeARPreview() {
           updateXRStatus('Move your phone slowly to find a surface.');
         }
       }
+      if (placementOffset && touchPulseUntil > performance.now() && anchorGroup.visible && !dragging) {
+        placementOffset.position.y = .014 * Math.sin((touchPulseUntil - performance.now()) / 220 * Math.PI);
+      } else if (!dragging) placementOffset.position.y = 0;
       if (previewModel && !xrSession.current) previewGroup.rotation.y += 0.003;
       rafRenderer?.render(scene, camera);
     });
@@ -198,12 +254,15 @@ export function MandrakeARPreview() {
       disposed = true;
       observer.disconnect();
       rafRenderer?.domElement.removeEventListener('pointerdown', onPointer);
+      rafRenderer?.domElement.removeEventListener('pointermove', onPointerMove);
+      rafRenderer?.domElement.removeEventListener('pointerup', onPointerEnd);
+      rafRenderer?.domElement.removeEventListener('pointercancel', onPointerEnd);
       rafRenderer?.setAnimationLoop(null);
       if (xrSession.current) void xrSession.current.end();
       rafRenderer?.dispose();
       rafRenderer?.domElement.remove();
-      reticle.geometry.dispose();
-      reticle.material.dispose();
+      reticle.traverse((node: any) => node.geometry?.dispose?.());
+      reticleMaterial.dispose();
       shadowTexture.dispose();
       shadowMaterial.dispose();
       place.current = null;
@@ -213,7 +272,7 @@ export function MandrakeARPreview() {
 
   const startAR = async () => {
     const xr = (navigator as Navigator & { xr?: XRSystemLike }).xr;
-    if (!xr || !xrReady) {
+    if (!xr) {
       setError('Spatial AR needs an ARCore-capable Android phone, Chrome, and a secure HTTPS preview. You can still inspect the 3D model here.');
       return;
     }
@@ -242,8 +301,8 @@ export function MandrakeARPreview() {
         hitTest.current = { source: null, referenceSpace: null, viewerSpace: null };
         const current = runtime.current;
         const model = current?.getPlacedModel();
-        if (model && model.parent === current.anchorGroup) {
-          current.anchorGroup.remove(model);
+        if (model && model.parent === current.placementOffset) {
+          current.placementOffset.remove(model);
           current.previewGroup.add(model);
         }
         if (current) {
@@ -252,7 +311,10 @@ export function MandrakeARPreview() {
         }
         setArActive(false);
         setPlaced(false);
-        setStatus('AR preview ended.');
+        if (embedded) {
+          setEmbeddedOpen(false);
+          onClose?.();
+        } else setStatus('AR preview ended.');
       }, { once: true });
     } catch (reason) {
       xrSession.current = null;
@@ -263,19 +325,34 @@ export function MandrakeARPreview() {
     }
   };
 
-  return <main className="mandrake-ar-page" ref={overlay}>
+  const openCamera = () => {
+    if (embedded) setEmbeddedOpen(true);
+    if (embedded) onOpen?.();
+    void startAR();
+  };
+  useImperativeHandle(ref, () => ({ openCamera }), [embedded, onOpen, xrReady]);
+
+  const closePreview = () => {
+    if (xrSession.current) void xrSession.current.end();
+    else if (embedded) {
+      setEmbeddedOpen(false);
+      onClose?.();
+    }
+  };
+
+  return <main className={`mandrake-ar-page${embedded ? ' is-embedded' : ''}${isVisible ? ' is-visible' : ''}${arActive ? ' is-camera-live' : ''}`} ref={overlay} aria-hidden={!isVisible}>
       <div className="mandrake-ar-model" ref={host} aria-label="Rotating 3D Mandrake Spirit preview" />
     <div className="mandrake-ar-top">
-      <a href="/" aria-label="Back to Kāvu">←</a>
-      <span>AR PREVIEW</span>
+      <button type="button" aria-label="Close AR camera" onClick={closePreview}>←</button>
+      <span>{embedded ? 'MEET VANASPATI' : 'AR PREVIEW'}</span>
     </div>
     <section className="mandrake-ar-panel">
       <p className="mandrake-ar-kicker">MEET THE MANDRAKE SPIRIT</p>
-      <h1>Find a place<br />for the little spirit.</h1>
+      <h1>{arActive ? 'Find a gentle spot.' : <>Find a place<br />for the little spirit.</>}</h1>
       <p className="mandrake-ar-status" role="status">{status}</p>
       {error && <p className="mandrake-ar-error" role="alert">{error}</p>}
-      {arActive ? <button type="button" onClick={xrSession.current ? () => void xrSession.current.end() : undefined}>{placed ? 'Finish preview' : 'End preview'}</button> : <button type="button" onClick={() => void startAR()} disabled={!loaded}>{xrReady ? 'Open spatial AR' : 'Try AR preview'}</button>}
+      {arActive ? <button type="button" onClick={closePreview}>{placed ? 'Done' : 'Close camera'}</button> : <button type="button" onClick={openCamera} disabled={!loaded}>{xrReady ? 'Open spatial AR' : 'Try AR preview'}</button>}
       <small>“Mandrake Spirit” by <a href="https://sketchfab.com/tranb95" target="_blank" rel="noreferrer">tranb95</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a></small>
     </section>
   </main>;
-}
+});

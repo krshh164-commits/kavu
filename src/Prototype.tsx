@@ -12,7 +12,7 @@ import { CarePage } from './CarePage';
 import { AmbientMusic } from './AmbientMusic';
 import { TextAnimate } from './TextAnimate';
 import { Floating3DParticles } from './Floating3DParticles';
-import { MandrakeARPreview } from './MandrakeARPreview';
+import { MandrakeARPreview, type MandrakeARHandle } from './MandrakeARPreview';
 
 const collection = [
   { name: 'Rock', image: '/assets/profile/mossy-rock.png', unlocked: true },
@@ -509,16 +509,18 @@ function ExploreWorld() {
 type ObservationPhoto = { id: number; url: string };
 
 function VanaspatiHandoff({ onHome }: { onHome: () => void }) {
-  const [arMessage, setArMessage] = useState('');
+  const arControl = useRef<MandrakeARHandle>(null);
+  const [arOpen, setArOpen] = useState(false);
   const { RiveComponent } = useRive({ src: '/assets/sobo.riv', artboard: 'SOBO-Motion-V01', stateMachine: 'State Machine', autoplay: true });
-  return <section className="kavu-vanaspati-invite" aria-label="A message from Kāvu">
+  return <section className={`kavu-vanaspati-invite${arOpen ? ' is-ar-open' : ''}`} aria-label="A message from Kāvu">
     <div className="kavu-vanaspati-invite-character" aria-hidden="true"><RiveComponent /></div>
     <h1>Kāvu wants to tell you something.</h1>
-    {arMessage && <p className="kavu-vanaspati-camera-message" role="status">{arMessage}</p>}
+    <p>Look around slowly. Tap a gentle spot to welcome Vanaspati.</p>
     <div className="kavu-vanaspati-invite-actions">
       <button type="button" onClick={onHome}>Back to Home</button>
-      <button type="button" onClick={() => setArMessage('Vanaspati’s AR view is not available yet. This project is missing a Vanaspati 3D model (.glb, .gltf or .usdz) and an AR scene or tracking target.')}>See</button>
+      <button type="button" onClick={() => arControl.current?.openCamera()}>See</button>
     </div>
+    <MandrakeARPreview ref={arControl} embedded onOpen={() => setArOpen(true)} onClose={() => setArOpen(false)} />
   </section>;
 }
 
