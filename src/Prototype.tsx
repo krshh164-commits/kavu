@@ -539,8 +539,6 @@ function ObservationFlow({ step, onStepChange, onClose }: { step: number; onStep
   const [cameraMessage, setCameraMessage] = useState('');
   const [revealed, setRevealed] = useState(false);
   const [vanaspatiHandoff, setVanaspatiHandoff] = useState(false);
-  const [connectionPhase, setConnectionPhase] = useState<'ready' | 'listening' | 'error'>('ready');
-  const [connectionMessage, setConnectionMessage] = useState('');
   const recognition = useRef<any>(null);
   const stream = useRef<MediaStream | null>(null);
   const video = useRef<HTMLVideoElement>(null);
@@ -565,8 +563,6 @@ function ObservationFlow({ step, onStepChange, onClose }: { step: number; onStep
   useEffect(() => () => { recognition.current?.stop(); stream.current?.getTracks().forEach(track => track.stop()); photoUrls.current.forEach(url => URL.revokeObjectURL(url)); keyboard.hide(); }, []);
   useEffect(() => { if (step !== 2) { stream.current?.getTracks().forEach(track => track.stop()); stream.current = null; setCameraOpen(false); setPreviewOpen(false); } }, [step]);
   useEffect(() => { if (step !== 5) return; setRevealed(false); const timer = window.setTimeout(() => setRevealed(true), 2600); return () => window.clearTimeout(timer); }, [step]);
-  useEffect(() => { if (step !== 4) { setConnectionPhase('ready'); setConnectionMessage(''); } }, [step]);
-  useEffect(() => { if (step !== 4 || connectionPhase !== 'listening') return; const timer = window.setTimeout(() => onStepChange(5), 2800); return () => window.clearTimeout(timer); }, [step, connectionPhase, onStepChange]);
 
   const startSpeech = () => {
     if (speaking) { recognition.current?.stop(); return; }
@@ -647,13 +643,6 @@ function ObservationFlow({ step, onStepChange, onClose }: { step: number; onStep
     setMarker({ x: Math.max(4, Math.min(96, (event.clientX - rect.left) / rect.width * 100)), y: Math.max(4, Math.min(96, (event.clientY - rect.top) / rect.height * 100)) });
   };
   const leaveText = () => { if (document.activeElement instanceof HTMLElement) document.activeElement.blur(); keyboard.hide(); restoreScreenPosition(); };
-  const connectKavu = async () => {
-    setConnectionMessage('');
-    const usb = (navigator as any).usb;
-    if (!usb?.requestDevice) { setConnectionPhase('error'); setConnectionMessage('This browser cannot read Kāvu’s cable. You can continue with demo readings.'); return; }
-    try { await usb.requestDevice({ filters: [] }); setConnectionPhase('listening'); }
-    catch { setConnectionPhase('error'); setConnectionMessage('Kāvu did not connect. Check the cable and try again.'); }
-  };
   const goBack = () => { leaveText(); if (step === 1) onClose(); else onStepChange(step - 1); };
   const continueFlow = () => { leaveText(); if (step < 5) onStepChange(step + 1); };
 
@@ -703,22 +692,16 @@ function ObservationFlow({ step, onStepChange, onClose }: { step: number; onStep
             <input ref={fileInput} type="file" accept="image/*" multiple hidden onChange={choosePhotos} aria-label="Choose Kāvu photos" />
             {photos.length > 0 && <div className="kavu-photo-strip" aria-label="Captured photos">{photos.map((photo, index) => <button type="button" key={photo.id} className={activePhoto?.id === photo.id ? 'is-selected' : ''} aria-label={`Preview photo ${index + 1}`} onClick={() => { setSelectedPhoto(photo.id); setPreviewOpen(true); }}><img src={photo.url} alt="" draggable="false" /></button>)}</div>}
           </>}
-          {step === 4 && <div className={`kavu-connect${connectionPhase === 'listening' ? ' is-listening' : ''}`}>
-            <div className="kavu-connect-ready" aria-hidden={connectionPhase === 'listening'}>
+          {step === 4 && <div className="kavu-connect">
+            <div className="kavu-connect-ready">
               <TextAnimate as="h1">Connect to your Kāvu</TextAnimate>
-              <p className="kavu-observation-subtitle">Plug in Kāvu’s cable to hear what this week has been like.</p>
+              <p className="kavu-observation-subtitle">Let’s bring this week’s clues together.</p>
               <img className="kavu-connect-art" src="/assets/connecting-kavu.svg" alt="Cable connecting to Kāvu" />
-              {connectionMessage && <p className="kavu-connect-error" role="status">{connectionMessage}</p>}
             </div>
-            {connectionPhase === 'listening' && <div className="kavu-connect-listening">
-              <TextAnimate as="h1">Listening to Kāvu’s story from the past week…</TextAnimate>
-              <Floating3DParticles />
-              <p className="kavu-connect-status" role="status">Gathering this week’s clues</p>
-            </div>}
           </div>}
         </div>
       </MobileScroll>
-      {!keyboardInsets.isKeyboardVisible && (step === 4 ? connectionPhase !== 'listening' && <div className="kavu-observation-action kavu-connect-action"><button type="button" onClick={connectKavu}>{connectionPhase === 'error' ? 'Try connecting again' : 'Connect Kāvu'} <span aria-hidden="true">→</span></button><button type="button" className="kavu-connect-demo" onClick={() => setConnectionPhase('listening')}>Continue with demo readings</button></div> : <div className="kavu-observation-action"><button type="button" disabled={step === 1 ? !note.trim() : step === 2 ? photos.length === 0 : !marker} onClick={continueFlow}>Continue <span aria-hidden="true">→</span></button></div>)}
+      {!keyboardInsets.isKeyboardVisible && (step === 4 ? <div className="kavu-observation-action kavu-connect-action"><button type="button" onClick={() => { leaveText(); onStepChange(5); }}>Connect Kāvu <span aria-hidden="true">→</span></button></div> : <div className="kavu-observation-action"><button type="button" disabled={step === 1 ? !note.trim() : step === 2 ? photos.length === 0 : !marker} onClick={continueFlow}>Continue <span aria-hidden="true">→</span></button></div>)}
       {previewOpen && activePhoto && <div className="kavu-photo-preview" role="dialog" aria-modal="true" aria-label="Photo preview"><button type="button" className="kavu-photo-preview-close" aria-label="Close photo preview" onClick={() => setPreviewOpen(false)}>×</button><img src={activePhoto.url} alt="Captured Kāvu" /><div><button type="button" onClick={() => { retakeTarget.current = activePhoto.id; setPreviewOpen(false); if (!cameraOpen) void openCamera(); }}>Retake</button><button type="button" onClick={() => { retakeTarget.current = activePhoto.id; setPreviewOpen(false); fileInput.current?.click(); }}>Choose replacement</button><button type="button" onClick={deletePhoto}>Delete</button></div></div>}
     </> : <>
       {!revealed && <button type="button" className="kavu-analysis-back" aria-label="Back to connecting" onClick={goBack}>‹</button>}
