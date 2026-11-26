@@ -34,10 +34,12 @@ export const MandrakeARPreview = forwardRef<MandrakeARHandle, MandrakeARProps>(f
     const root = host.current;
     if (!root) return;
     let disposed = false;
-    let reticleVisible = false;
+    let surfaceFound = false;
     let lastXRStatus = '';
     let previewModel: any = null;
     let placedModel: any = null;
+    let characterMixer: any = null;
+    const animationClock = new THREE.Clock();
     let rafRenderer: any = null;
 
     const scene = new THREE.Scene();
@@ -85,24 +87,9 @@ export const MandrakeARPreview = forwardRef<MandrakeARHandle, MandrakeARProps>(f
     previewGroup.add(makeShadow());
     placementOffset.add(makeShadow());
 
-    const reticle = new THREE.Group();
-    reticle.matrixAutoUpdate = false;
-    reticle.visible = false;
-    reticle.renderOrder = 10;
-    const reticleMaterial = new THREE.MeshBasicMaterial({ color: 0xc84940, depthTest: false });
-    const reticleSide = .16;
-    const reticleThickness = .004;
-    [
-      { width: reticleSide, depth: reticleThickness, x: 0, z: -reticleSide / 2 },
-      { width: reticleSide, depth: reticleThickness, x: 0, z: reticleSide / 2 },
-      { width: reticleThickness, depth: reticleSide, x: -reticleSide / 2, z: 0 },
-      { width: reticleThickness, depth: reticleSide, x: reticleSide / 2, z: 0 },
-    ].forEach(({ width, depth, x, z }) => {
-      const edge = new THREE.Mesh(new THREE.BoxGeometry(width, .003, depth), reticleMaterial);
-      edge.position.set(x, 0, z);
-      reticle.add(edge);
-    });
-    scene.add(reticle);
+    // Keep the surface pose for placement while drawing no reticle.
+    const surfacePose = new THREE.Group();
+    surfacePose.matrixAutoUpdate = false;
 
     try {
       rafRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'low-power' });
@@ -157,6 +144,11 @@ export const MandrakeARPreview = forwardRef<MandrakeARHandle, MandrakeARProps>(f
       previewGroup.add(source);
       previewModel = previewGroup;
       placedModel = source;
+      const idleClip = gltf.animations?.find((clip: any) => /idle/i.test(clip.name)) ?? gltf.animations?.[0];
+      if (idleClip && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        characterMixer = new THREE.AnimationMixer(source);
+        characterMixer.clipAction(idleClip).play();
+      }
       setLoaded(true);
       setStatus('Ready to find a gentle spot.');
     }, undefined, () => setError('The Mandrake Spirit model could not be loaded.'));
@@ -171,8 +163,8 @@ export const MandrakeARPreview = forwardRef<MandrakeARHandle, MandrakeARProps>(f
     }).catch(() => setStatus('Preview ready · AR support could not be checked.'));
 
     place.current = () => {
-      if (!reticleVisible || !placedModel) return;
-      anchorGroup.matrix.copy(reticle.matrix);
+      if (!surfaceFound || !placedModel) return;
+      anchorGroup.matrix.copy(surfacePose.matrix);
       previewGroup.remove(placedModel);
       placementOffset.add(placedModel);
       anchorGroup.visible = true;
@@ -232,20 +224,19 @@ export const MandrakeARPreview = forwardRef<MandrakeARHandle, MandrakeARProps>(f
         if (hit) {
           const pose = hit.getPose(hitTest.current.referenceSpace);
           if (pose) {
-            reticle.matrix.fromArray(pose.transform.matrix);
-            reticle.visible = true;
-            reticleVisible = true;
-            updateXRStatus('Move slowly to find a spot, then tap the red square.');
+            surfacePose.matrix.fromArray(pose.transform.matrix);
+            surfaceFound = true;
+            updateXRStatus('A spot is ready. Tap to place Vanaspati.');
           }
         } else {
-          reticle.visible = false;
-          reticleVisible = false;
+          surfaceFound = false;
           updateXRStatus('Move your phone slowly to find a surface.');
         }
       }
       if (placementOffset && touchPulseUntil > performance.now() && anchorGroup.visible && !dragging) {
         placementOffset.position.y = .014 * Math.sin((touchPulseUntil - performance.now()) / 220 * Math.PI);
       } else if (!dragging) placementOffset.position.y = 0;
+      characterMixer?.update(Math.min(animationClock.getDelta(), .05));
       if (previewModel && !xrSession.current) previewGroup.rotation.y += 0.003;
       rafRenderer?.render(scene, camera);
     });
@@ -261,8 +252,7 @@ export const MandrakeARPreview = forwardRef<MandrakeARHandle, MandrakeARProps>(f
       if (xrSession.current) void xrSession.current.end();
       rafRenderer?.dispose();
       rafRenderer?.domElement.remove();
-      reticle.traverse((node: any) => node.geometry?.dispose?.());
-      reticleMaterial.dispose();
+      characterMixer?.stopAllAction();
       shadowTexture.dispose();
       shadowMaterial.dispose();
       place.current = null;
